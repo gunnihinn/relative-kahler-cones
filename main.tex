@@ -1,0 +1,748 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[pdftex]{hyperref}
+\usepackage{setspace}
+\setstretch{1.1}
+
+\title[The complex geometry of K\"{a}hler cones]
+{The complex geometry\\of K\"{a}hler cones}
+\author{Gunnar Þór Magnússon}
+
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{coro}[theo]{Corollary}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem*{theo*}{Theorem}
+\theoremstyle{definition}
+\newtheorem*{defi}{Definition}
+\newtheorem{exam}[theo]{Example}
+\theoremstyle{remark}
+\newtheorem*{rema}{Remark}
+
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+
+\newcommand{\End}{\mathop{\mathrm{End}}}
+\newcommand{\Aut}{\mathop{\mathrm{Aut}}}
+\newcommand{\id}{\mathop{\mathrm{id}}}
+\newcommand{\Vol}{\mathop{\mathrm{Vol}}}
+\def\Im{\mathop{\rm Im}}
+
+\def\ov#1{\overline{#1}}
+
+%% Operators
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Hom}{Hom}
+\def\d{\partial}
+\def\dbar{\bar\partial}
+
+\def\p{\times}
+
+%% Cohomology groups
+\def\coho#1{\mathrm{H}^{#1}}
+
+%% Connection and curvature
+\def\chern{D}
+\def\conn{\nabla}
+\def\curv{\tfrac{i}{2\pi}\Theta}
+
+%% Intersection products with a Ahler form
+\def\q#1{\frac{1}{\Vol}\int_X #1 \wedge \kf\^{n-1}}
+\def\qq#1#2{\frac{1}{\Vol}\int_X #1 \wedge #2 \wedge \kf\^{n-2}}
+\def\qqq#1#2#3{\frac{1}{\Vol}\int_X #1 \wedge #2 \wedge #3 \wedge \kf\^{n-3}}
+\def\qqqq#1#2#3#4{\frac{1}{\Vol}\int_X #1 \wedge #2 \wedge#3 \wedge#4 \wedge \kf\^{n-4}}
+
+%% The K\"{a}hler form and class of a Hermitian metric
+\def\kf{\omega}
+\def\ckf{\alpha}
+
+%% Vertical and horizontal vectors
+\def\ver#1{#1^{\mathrm{V}}}
+\def\hor#1{#1^{\mathrm{H}}}
+
+%% Tangent vectors in K\"{a}hler cone
+\def\ton{u}
+\def\ttw{v}
+\def\tth{z}
+\def\tfo{w}
+
+%% Algebra power
+\def\^#1{^{[#1]}}
+
+%% K\"{a}hler cones
+\def\KC{C}
+\def\RKC{\mathcal{\KC}}
+
+\begin{document}
+
+\begin{abstract}
+The complexified K\"{a}hler cone of a compact manifold carries a natural
+Hermitian metric, given by the intersection product of its cohomology
+ring. We show that this metric is K\"{a}hler and calculate its curvature
+tensor. We also give a relative version of this metric on the K\"{a}hler
+cones of a family of manifolds and show that it extends to a closed
+semipositive form on the total space of those cones.
+\end{abstract}
+
+\maketitle
+
+
+
+\section{On the cone of a fixed manifold}
+
+\subsection{The K\"{a}hler cone}
+Let $X$ be a compact K\"{a}hler manifold of dimension $\dim_{\CC} X = n$.
+
+\begin{defi}
+The \emph{K\"{a}hler cone} of $X$ is the set
+\begin{equation*}
+C_{\RR}(X) = \{ \kf \in \coho{1,1}(X,\RR) 
+\mid
+\text{$\kf$ contains a K\"{a}hler metric}
+\}.
+\end{equation*}
+The \emph{complexified K\"{a}hler cone} of $X$ is
+\begin{align*}
+\KC(X) 
+&:=
+\{ \ckf \in \coho{1,1}(X,\CC) 
+\mid
+\text{$\Im\ckf$ contains a K\"{a}hler metric}
+\}
+\\
+&\phantom{:}= \coho{1,1}(X,\RR) \oplus i C_{\RR}(X).
+\end{align*}
+\end{defi}
+
+If there can be no confusion about the underlying manifold $X$, we'll
+just write $C$ for its complexified K\"{a}hler cone.
+As the names suggest, these are open cones in the finite-dimensional
+vector spaces $\coho{1,1}(X,\RR)$ and $\coho{1,1}(X,\CC)$. The K\"{a}hler
+cone is the trancendental analogue of the ample cone of a projective
+variety. It is described by the the trancendental version of the 
+Nakai--Moishezon criteria due to Demailly and Paun~\cite{DemaillyPaun}:
+
+
+\begin{theo}
+The K\"{a}hler cone of $X$ is a connected component of the set of real
+$(1,1)$-cohomology classes that are numerically positive on analytic
+cycles, that is, classes $\alpha$ such that $\int_{Z} a^p > 0$ for every
+irreducible analytic set $Z$ in $X$ of dimension $p$.
+\end{theo}
+
+
+\subsection{The K\"{a}hler metric on the cone}
+
+Since the complexified K\"{a}hler cone $C$ is an open set in a complex
+vector space, we can view it as a complex manifold in its own right.
+We now pull a Hermitian form $h$ on its tangent space out of our hat
+after agreeing on some notation.
+If $\ckf$ is a point of $C$, we write $\kf = \Im \ckf$. We conspire to
+write $u\^k := u^k / k!$ for any cohomology class $u$ on $X$ and write
+$\Vol := \Vol(X,\kf) = \int_X \kf\^n$. If $\ton,\ttw$ are tangent vectors
+of $C$ at $\ckf$, we set
+\begin{equation*}
+h(\ton,\ov\ttw)_{\ckf} 
+= \q{\ton} \cdot \q{\ov{\ttw}}
+- \qq{\ton}{\ov\ttw}
+\end{equation*}
+
+
+\begin{prop}
+The Hermitian form $h$ is a K\"{a}hler metric.
+\end{prop}
+
+
+\begin{proof}
+We first justify that $h$ is positive-definite. Using the hard
+Lefschetz theorem, we decompose a tangent vector as $\ton = \ton_0 \kf +
+\ton_1$, where $\ton_0$ is a scalar and $\ton_1$ is a $\kf$-primitive
+$(1,1)$-class.  Plugging this into the definition of $h$ eventually
+shows that
+\begin{equation*}
+h(\ton,\ov\ton)
+= n \, \|\ton_0\|^2
+- \qq{\ton_1}{\ov\ton_1} 
+= n \, \|\ton_0\|^2
++ \frac{1}{\Vol} \|u_1\|^2,
+\end{equation*}
+where the norm is the one defined by $\kf$ on the cohomology ring of
+$X$.
+
+Next we note that $\Vol : C \to \RR$ is a smooth function on the
+complexified K\"{a}hler cone and claim that $-4 \Vol$ is a potential for
+$h$. For this, remark that $\kf = \Im \ckf = (\ckf - \ov\ckf)/2i$ and
+that we can view $\ckf$ as the tautological section $C \to T_C$
+associated to the tangent bundle of any open set in a vector space.
+It follows that $\d\kf = \frac{1}{2i} \d\ckf$ and 
+$\dbar\kf = -\frac{1}{2i} \dbar\ckf$, where $d = \d + \dbar$ is
+the exterior derivative on the vector space $\coho{1,1}(X,\CC)$.
+
+We now have
+$$
+\dbar \log \Vol
+= \q{-\tfrac{i}{2i}\dbar\ckf}
+$$
+so we get
+\begin{equation*}
+\displaylines{
+\phi := -4 \cdot \tfrac{i}{2}\d\dbar \log \Vol
+= 
+\frac{i}{2}
+\q{\d\ckf} \cdot \q{\dbar\ckf}
+\hfill\cr\hfill{}
+- \frac{i}{2} \qq{\d\ckf}{\dbar\ckf}
+}
+\end{equation*}
+after being careful about sign errors. If we now pick tangent fields
+$\ton, \ttw$ of $C$, we find $\phi(\ton,\ov\ttw) = h(\ton,\ov\ttw)$.
+\end{proof}
+
+
+\begin{rema}
+The real version of this metric, defined on the K\"{a}hler cone, has been
+studied by Wilson~\cite{Wilson} along with Trenner~\cite{WilsonTrenner},
+mostly on the K\"{a}hler cone of manifolds with trivial canonical bundle.
+Wilson picked a K\"{a}hler metric to work with and was able to express the
+curvature tensor of the metric in terms of differential forms.
+
+In my thesis~\cite{Magnusson} I also studied the real metric by
+embedding the K\"{a}hler cone into the space of Hermitian metrics on the
+underlying manifold via the Aubin--Calabi--Yau theorem (as in fact
+suggested by Wilson in his paper). That space carries a natural
+Riemannian metric, known as the Ebin metric when considered on the space
+of Riemannian metrics on the underlying smooth manifold;
+see~\cite{Ebin,ClarkeRubinstein}. This embedding lets us calculate the
+curvature tensor of the metric.
+
+The problem with both approaches is that while the metric on the K\"{a}hler
+cone is defined entirely in cohomological terms, the expressions one
+gets for its curvature tensor are not cohomological. They involve
+differential forms that are induced from harmonic forms on the manifold,
+but are themselves neither harmonic nor closed. This makes it difficult
+to say anything at all about the curvature of the metric. In this paper
+we'll treat the Aubin--Calabi--Yau theorem and actual K\"{a}hler metrics as
+red herrings and stay wholly within the cohomology ring of our manifold.
+
+One can also remark that Wilson chooses to work on a subset of the
+K\"{a}hler cone; one defined by all K\"{a}hler metrics of a fixed volume. This
+makes perfect sense in the real case, since the K\"{a}hler cone is isometric
+to the positive real line times such a subset and this restriction lets
+us work only with primitive forms. Our metric (or rather its real version)
+is the same as Wilson's metric once restricted to this subset.  I don't
+see a similar useful complex subspace of the complexified K\"{a}hler cone, so
+we work on all of it. This doesn't change anything important.
+\end{rema}
+
+
+
+\subsection{The Chern connection and curvature form}
+
+The Chern connection on a holomorphic vector bundle with a Hermitian
+metric $h$ is the unique connection that is compatible with the metric
+and whose $(0,1)$-part is $\dbar$; that is, it satisfies
+$$
+d h(\ton, \ov{\ttw}) 
+= h(\chern \ton, \ov{\ttw}) + h(\ton, \ov{\chern \ttw}),
+\quad
+\chern^{0,1} = \dbar
+$$
+for all sections $u, v$ of the bundle.
+
+
+\begin{prop}
+\label{prop:chernconnection}
+The Chern connection of the K\"{a}hler metric on $\KC$ is
+$$
+\chern \ton
+= d\ton 
+- h(\d \kf, \kf)\, \ton
+- h (\ton, \kf)\, \d\kf 
++ \Lambda(\ton \wedge \d\kf).
+$$
+\end{prop}
+
+
+\begin{proof}
+It's enough to calculate the Chern connection on local holomorphic
+vector fields, so let $\ton, \ttw$ be thus. Then the Chern connection
+satisfies
+$$
+\d h(\ton,\ov\ttw)
+= h(\chern^{1,0}\ton, \ov\ttw),
+$$
+and knowing that is enough to describe it all (plus it saves us some
+calculations). We have
+$$
+h(\ton,\ov\ttw)
+= \q{\ton} \cdot \q{\ov\ttw} - \qq{\ton}{\ov\ttw}.
+$$
+First we note that
+\begin{equation*}
+\displaylines{
+\d\q{\ton}  
+= 
+- \q{\d\kf} \cdot \q{\ton} 
+\hfill\cr\hfill
+{}+ \q{\d\ton}
+{}+ \qq{\ton}{\d\kf}.
+}
+\end{equation*}
+Second, we have
+\begin{equation*}
+\displaylines{
+\d\qq{\ton}{\ov\ttw}
+=
+{}- \q{\d\kf} \cdot \qq{\ton}{\ov\ttw}
+\hfill\cr\hfill
+{}+ \qq{\d\ton}{\ov\ttw}
+%\cr\hfill
+{}+ \qqq{\ton}{\ov\ttw}{\d\kf}.
+}
+\end{equation*}
+Putting these together, we take a deep breath and calculate
+\begin{equation*}
+\def\bil{\phantom{dh(\ton,\ttw)}}
+\displaylines{
+\d h(\ton,\ttw)
+{}=
+\d\biggl( \q{\ton} \cdot \q{\ov\ttw}\biggr)
+- \d\biggl( \qq{\ton}{\ov\ttw}\biggr)
+\hfill\cr
+%\bil{}=
+%\d\biggl( \q{\ton} \biggr) \cdot \q{\ov\ttw}
+%\hfill\cr\hfill
+%{}+ \q{\ton} \cdot \d\biggl( \q{\ov\ttw} \biggr) 
+%\cr\hfill
+%{}- \d\biggl( \qq{\ton}{\ov\ttw}\biggr)
+%\cr
+\bil
+{}= 
+\hfill
+- \q{\d\kf} \cdot \q{\ton} \cdot \q{\ov\ttw}
+\quad(1)\cr\hfill
+{}+ \q{\d\ton}\cdot \q{\ov\ttw}
+\quad(2)\cr\hfill
+{}+ \qq{\ton}{\d\kf}\cdot \q{\ov\ttw}
+\quad(3)\cr\hfill
+{}- \q{\ton} \cdot \q{\d\kf} \cdot \q{\ov\ttw} 
+\quad(4)\cr\hfill
+{}+ \q{\ton} \cdot \qq{\ov\ttw}{\d\kf}
+\quad(5)\cr\hfill
+{}+ \q{\d\kf} \cdot \qq{\ton}{\ov\ttw}
+\quad(6)\cr\hfill
+{}- \qq{\d\ton}{\ov\ttw}
+\quad(7)\cr\hfill
+{}- \qqq{\ton}{\d\kf}{\ov\ttw}.
+\quad(8)
+}
+\end{equation*}
+We can simplify some of these expressions. For example
+\begin{align*}
+(2) + (7) &= h(\d\ton, \ov\ttw),
+\\
+(1) + (6) &= -h(\d\kf, \kf) \cdot h(\ton, \ov\ttw),
+\\
+(4) + (5) &= -h(\ton, \kf) \cdot h(\d\kf, \ov\ttw),
+\end{align*}
+leaving only the two pieces
+\begin{equation*}
+\displaylines{
+(3) + (8) 
+\hfill\cr\hfill
+{}=
+\qq{\ton}{\d\kf}\cdot \q{\ov\ttw}
+- \qqq{\ton}{\d\kf}{\ov\ttw}.
+}
+\end{equation*}
+By Lemma~\ref{lemm:hodgeproduct} there exists a unique vector $\ton
+\star \d\kf \in \coho{1,1}(X,\CC)$ such that
+\begin{align*}
+\ton \star \d\kf \wedge \kf\^{n-2}
+&= \ton \wedge \d\kf \wedge \kf\^{n-3},
+\\
+\tfrac{n-1}{n-2} \ton \star \d\kf \wedge \kf\^{n-1}
+&= \ton \wedge \d\kf \wedge \kf\^{n-2}.
+\end{align*}
+Then we can write
+\begin{align*}
+(3) + (8)
+&= 
+\frac{n-1}{n-2} 
+\q{\ton \star \d\kf}\cdot\q{\ov\ttw}
+\\
+&
+\qquad
+\qquad
+\qquad
+- \qq{\ton \star \d\kf}{\ov\ttw}.
+\\
+&=\tfrac{1}{n-2} 
+h(\ton \star \d\kf, \kf) \cdot h(\kf, \ov\ttw)
++ h(\ton \star \d\kf, \ov\ttw)
+\end{align*}
+Putting this all together, we get
+\begin{align*}
+\chern \ton 
+&= d\ton 
+- h(\d \kf, \kf)\, \ton
+- h (\ton, \kf)\, \d\kf 
++ \tfrac{1}{n-2} h(\ton \star \d\kf, \kf)\, \kf
++ \ton \star \d\kf
+\\
+&= d\ton 
+- h(\d \kf, \kf)\, \ton 
+- h (\ton, \kf)\, \d\kf 
++ \tfrac{1}{n-1} \Lambda\^{2}(\ton \wedge \d\kf)\, \kf
+\\
+&
+\qquad \qquad \qquad \qquad
+\qquad \qquad \qquad \qquad
++ \Lambda(\ton \wedge \tth) 
+- \tfrac{1}{n-1} \Lambda\^{2} (\ton\wedge\tth)\, \kf
+\\
+&= d\ton 
+- h(\d \kf, \kf)\, \ton 
+- h (\ton, \kf)\, \d\kf 
++ \Lambda(\ton \wedge \d\kf),
+\end{align*}
+by using the expression of $\ton \star \d\kf$ from
+Lemma~\ref{lemm:hodgeproduct}.
+\end{proof}
+
+
+\begin{lemm}
+\label{lemm:hodgeproduct}
+Let $\ton, \tth$ be $(1,1)$-classes on $X$. Then there is a unique
+$(1,1)$-class $\ton \star \tth$ on $X$ such that
+\begin{align*}
+\ton \star \d\kf \wedge \kf\^{n-2}
+&= \ton \wedge \d\kf \wedge \kf\^{n-3},
+\\
+\tfrac{n-1}{n-2} \ton \star \d\kf \wedge \kf\^{n-1}
+&= \ton \wedge \d\kf \wedge \kf\^{n-2}.
+\end{align*}
+In fact,
+\begin{equation*}
+\ton \star \tth
+= \Lambda(\ton \wedge \tth) 
+- \tfrac{1}{n-1} \Lambda\^{2} (\ton\wedge\tth)\, \kf.
+\end{equation*}
+\end{lemm}
+
+
+\begin{proof}
+Let $L x = x \wedge \kf$ be the Lefschetz operator on $\coho{*}(X,\CC)$.
+The hard Lefschetz theorem says that $L\^{n-2} : \coho{1,1}(X,\CC) \to
+\coho{n-1,n-1}(X,\CC)$ is an isomorphism. Since $\ton \wedge \tth \wedge
+\kf\^{n-3} = L\^{n-3}(\ton \wedge \tth)$ is an $(n-1,n-1)$-class, the
+class $\ton \star \tth$ exists, is unique and equals
+$(L\^{n-2})^{-1}(L\^{n-3}(\ton \wedge \tth))$.
+
+Let $\Lambda$ be the adjoint of the Lefschetz operator. Recall that
+$$
+[L\^i, \Lambda] = (k - n + i - 1) L\^{i-1}
+$$
+on the space of $k$-classes on $X$; see
+\cite[Corollary~1.64]{HuybrechtsGeometry}. On the space of $4$-classes
+with $i = n-2$ this gives $[L\^{n-2}, \Lambda] = L\^{n-3}$, so
+$$
+L\^{n-3}(\ton \wedge \tth)
+= L\^{n-2}\Lambda(\ton \wedge \tth) 
+- \Lambda L\^{n-2}(\ton \wedge \tth).
+$$
+The first term is fine, so let's focus on the second one. We make the
+banal remark that $\Lambda\^2(\ton \wedge \tth)$ is a scalar and
+calculate in succession that
+\begin{align*}
+L\^{n-2}(\ton \wedge \tth) 
+&= \Lambda\^{2}(\ton \wedge \tth)\, \kf\^n,
+\\
+\Lambda L\^{n-2}(\ton \wedge \tth) 
+&= \Lambda\^{2}(\ton \wedge \tth)\, \kf\^{n-1},
+\\
+(\Lambda\^{n-2}a)^{-1}(\Lambda L\^{n-2}(\ton \wedge \tth) )
+&= \tfrac{1}{n-1} \Lambda\^{2}(\ton \wedge \tth)\, \kf.
+\end{align*}
+This gives the first of our results. For the second we simply calculate
+\begin{align*}
+\ton \star \d\kf \wedge \kf\^{n-1}
+= \frac{1}{n-1} \ton \star \d\kf \wedge \kf\^{n-2} \wedge \kf
+&= \frac{1}{n-1} \ton \wedge \d\kf \wedge \kf\^{n-3} \wedge \kf
+\\
+&= \frac{n-2}{n-1} \ton \wedge \d\kf \wedge \kf\^{n-2},
+\end{align*}
+which is equivalent to the second result.
+\end{proof}
+
+
+\begin{coro}
+\label{coro:kahlerform}
+\hfil
+$\chern \kf = -\d\kf + \dbar\kf$.
+\hfil
+\end{coro}
+
+
+\begin{proof}
+By Proposition~\ref{prop:chernconnection} we have 
+$$
+\chern \kf = 
+d\kf
+- h(\d \kf, \kf)\, \kf 
+- h (\kf, \kf)\, \d\kf 
++ \Lambda(\kf \wedge \d\kf).
+$$
+From $[L,\Lambda] \d\kf = (2-n)\d\kf$ we get $\Lambda (\kf \wedge \d\kf) =
+h(\d\kf,\kf)\kf + (n-2) \d\kf$, so
+$$
+D \kf = 
+d\kf
+- h(\d \kf, \kf)\, \kf 
+- n\, \d\kf 
++ h(\d\kf,\kf)\kf + (n-2) \d\kf
+= -\d\kf + \dbar\kf.
+\qedhere
+$$
+\end{proof}
+
+
+\begin{theo}
+The curvature form of the K\"{a}hler metric on $\KC$ is
+\begin{equation*}
+\displaylines{
+h\bigl(\curv_{\tth,\ov\tfo}\, \ton, \ov\ttw\bigr)
+= - \tfrac14 h(\ton,\ov\ttw)\, h(\tth,\ov\tfo)
++ \tfrac14 h (\ton,\ov\tfo)\, h(\tth,\ov\ttw)
+\hfill\cr\hfill{}
++ \frac14 \qqqq{\ton}{\ov\ttw}{\tth}{\ov\tfo}.
+}
+\end{equation*}
+\end{theo}
+
+
+\begin{proof}
+Let $\ton$ be a local holomorphic section of the tangent bundle of $\KC$.
+By definition, we have $\curv = \chern^2$ and since our connection is
+Hermitian, we get $\curv = \dbar \chern$ on holomorphic sections.
+Note that since $\kf = \Im \alpha$, we have $\d\dbar \kf = 0$.
+Proposition~\ref{prop:chernconnection} and
+Corollary~\ref{coro:kahlerform} now give
+\begin{align*}
+\dbar \chern \ton
+&=\dbar\bigl( d\ton 
+- h(\d \kf, \kf)\, \ton
+- h (\ton, \kf)\, \d\kf 
++ \Lambda(\ton \wedge \d\kf)\bigr)
+\\
+&=
+h(\d \kf,\ov{\chern^{1,0}\kf})\, \ton
+- h (\ton, \ov{\chern^{1,0}\kf})\, \d\kf 
++ \dbar(\Lambda(\ton \wedge \d\kf))
+\\
+&=
+- h(\d \kf,\dbar\kf)\, \ton
++ h (\ton,\dbar\kf)\, \d\kf 
++ (\dbar\Lambda)(\ton \wedge \d\kf),
+\end{align*}
+where we consider $\Lambda$ as a linear morphism on $\coho{*}(X,\CC)$
+that depends on the parameter $\kf$. (Recall that $\d\kf$ is a one-form
+on $\KC$ with values in the tangent bundle, so the signs involved in
+passing the connection inside the metric are correct.)
+
+Let's denote the usual inner product that $\kf$ defines
+on $\coho{*}(X,\CC)$ by $\langle\,\cdot\,,\,\cdot\,\rangle$. Formally
+differentiating the identity $\langle \Lambda\alpha, \ov\beta\rangle =
+\langle \alpha, \kf \wedge \beta\rangle$ gives
+$$
+\langle (\dbar\Lambda)\alpha, \ov\beta \rangle
+= \langle \alpha, \dbar\kf \wedge \ov\beta \rangle
+$$
+for any $k$-classes $\alpha, \beta$ after tidying up a little. 
+Recall that $\kf = \Im \alpha$, where $\alpha$ is the tautological
+section of $T_{\KC}$. Thus $\d\kf(\tth) = \frac{1}{2i}\tth$ 
+and $\dbar\kf(\ov\tfo) = -\frac{1}{2i}\ov\tfo$. Taking inner products and
+minding the volume factor, we now get
+$$
+h\bigl(\curv_{\tth,\ov\tfo}\, \ton, \ov\ttw\bigr)
+= - \tfrac14 h(\ton,\ov\ttw)\, h(\tth,\ov\tfo)
++ \tfrac14 h (\ton,\ov\tfo)\, h(\tth,\ov\ttw)
++ \frac14 \frac{1}{\Vol} \langle \ton \wedge \tth, \ov{\ttw\wedge\tfo} \rangle.
+\qedhere
+$$
+\end{proof}
+
+
+
+\subsection{Completeness}
+
+The theorem of Demailly and Paun describes the boundary of the
+K\"{a}hler cone of a compact complex manifold. It consists of three
+parts:
+\begin{enumerate}
+\item Limits of classes $a_t$ whose volume $\int_X a_t\^n$
+tends to zero.
+\item Limits of classes whose volume tends to infinity.
+\item Limits of classes whose volume tends to some positive real
+number, but there exists a proper irreducible complex subspace $Z
+\subset X$ of dimension $p \geq 1$ whose volume tends to zero.
+\end{enumerate}
+Complexifying the K\"{a}hler cone adds one more entry to this list:
+\begin{enumerate}
+\item[(4)] Limits of classes that fall into none of cases (1)--(3), but
+whose real part tends to infinity.
+\end{enumerate}
+
+Let us conspire to call $\mathcal{P} := \{\alpha \in \coho{1,1}(X,\CC)
+\mid (\Im\alpha)^n > 0\}$ the cone of complexified volume classes on
+$X$, or the complexified volume cone. It contains the complexified
+K\"{a}hler cone, but is in almost all cases bigger than it.
+
+\begin{prop}
+\label{prop:fofo}
+The metric on the complexified K\"{a}hler cone of $X$ is complete if and
+only if cone is a connected component of the complexified volume cone.
+\end{prop}
+
+\begin{proof}
+We first show that the classes on the first two parts of the boundary
+pose no problems. Let $I$ be an interval in the real numbers and let
+$\gamma : I \to \KC$ be a smooth path in $\KC$ that approaches the
+boundary of $\KC$. Let $I_m = [a, b_m]$ be an increasing exhaustion
+of $I$ by compact intervals and let $\gamma_m$ be the restriction
+of $\gamma$ to $I_m$. Suppose that the volume $\Vol(X,\Im\gamma_m)$
+tends to either zero or infinity as $m$ tends to infinity.
+
+\begin{lemm}
+Let $I = [a,b]$ be a compact interval in the real numbers $\RR$,
+and let $\gamma : I \to \KC$ be a smooth path. The length of
+the path $\gamma$  satisfies
+$$
+L(\gamma) \geq
+\frac{\sqrt 2}{\sqrt n}
+\bigl| \log \Vol(X,\Im\gamma(b))
+- \log \Vol(X,\Im\gamma(a))
+\bigr|.
+$$
+\end{lemm}
+
+\begin{proof}[Sketch of proof.]
+We apply the Cauchy--Schwarz inequality to the scalar product
+$h(\ton,\kf)$; this gives
+$$
+|\ton \cdot \log \Vol(X,\kf)|^2 
+= |\tfrac{1}{2i}h(\ton,\kf)|^2 \leq \tfrac{n}{2} h(\ton,\ov\ton).
+$$
+Integrating and applying the triangle inequality then gives the
+announced estimate.
+\end{proof}
+
+Applying the lemma on each interval $I_m$ then gives that
+\begin{equation*}
+  L(\gamma) = \lim\limits_{m \to +\infty} L(\gamma_m) = +\infty.
+\end{equation*}
+Thus the limit class $\lim \gamma(t)$ on the boundary cannot be
+approached by paths in $\KC$ of finite length.
+
+If the complexified K\"{a}hler and volume cones of $X$ do not
+coincide, then there exists a class $\alpha$ on the boundary of
+$\KC_{\RR}$ such that $\Vol(X,\alpha) > 0$, but there is a proper
+complex subspace $Z \subset X$ such that $\Vol(Z,\alpha) = 0$.
+
+As $\alpha$ is on the boundary of the K\"{a}hler cone, then there
+exists a K\"{a}hler class $\kf$ such that $\gamma(t) := \alpha +
+t\kf$ is in the K\"{a}hler cone for all $t > 0$. The tangent vectors
+of the path $\gamma$ are $\gamma'(t) = \kf$, and the norm of
+$\gamma'(t)$ at the point $\gamma(t)$ is
+$$
+\displaylines{
+  h(t) :=
+  g(\gamma'(t), \gamma'(t))(\gamma(t)) =
+  \left(
+    \frac{1}{\Vol(X,\gamma(t))}
+    \int_X \kf \wedge (\alpha + t\kf)\^{n-1}
+  \right)^2
+\hfill\cr\hfill
+{}- \frac{1}{\Vol(X,\gamma(t))}
+    \int_X \kf^2 \wedge (\alpha + t\kf)\^{n-2}.
+}
+$$
+Each of these integrals, and the function $t \mapsto \Vol(X,\gamma(t))$,
+is a polynomial in $t$ on some small interval $[0,t_0]$. As $\lim_{t\to
+0} \Vol(X,\gamma(t)) > 0$ the function $t \mapsto h(t)$ is continuous
+and positive on a compact interval, so the integral $L(\gamma)$ of its
+square root exists and is finite.
+
+Finally suppose that we have a path $\gamma : I = [a,b] \to C$ that
+doesn't fit into cases (1)--(3) but meanders along the real direction in
+the complexified K\"{a}hler cone. I then claim that the set
+$$
+J := \{ \Im \gamma(t) \mid t \in I \}
+$$
+is relatively compact in $C_{\RR}$: Let $\nu$ be a limit point of that
+set. Since the volumes of the classes $\Im \gamma(t)$ neither tend
+towards $0$ nor $\infty$ they are contained in some compact interval, so
+the volume of $\nu$ is positive. Similarly, we've excluded that the
+volume of some subvariety $Z$ with respect to $\nu$ is zero by
+hypothesis, so $\Vol(Z,\nu) > 0$ for all subspaces $Z$ of $X$. Thus
+$\nu$ is a K\"{a}hler class. 
+This implies that
+$$
+%m(t) := \inf_{\nu \in J} h(\gamma'(t),\ov{\gamma'(t)})_{\nu}
+%\quad\text{and}\quad
+M(t) := \sup_{\nu \in J} h(\gamma'(t),\ov{\gamma'(t)})_{\nu}
+$$
+exists, so the length of $\gamma$ can be bounded by above by
+$\int_I M(t) dt$.
+\end{proof}
+
+\subsection{Pullbacks}
+
+A holomorphic map $f : X \to Y$ between compact K\"{a}hler manifolds induces
+a morphism $f^* : \coho{*}(Y,\CC) \to \coho{*}(X,\CC)$ in cohomology
+that respects the Hodge decomposition. However, if $\kf$ is a K\"{a}hler
+class on $Y$, then $f^*\kf$ is hardly ever a K\"{a}hler class on $X$. This
+happens mostly if $f$ is either an embedding or a finite covering map.
+
+\begin{prop}
+Let $f : X \to Y$ be a finite surjective morphism. Let $h_X$ and $h_Y$
+be the K\"{a}hler metrics on the complexified K\"{a}hler cones of $X$ and
+$Y$, respectively. Then the pullback morphism $f^* : \KC(Y) \to \KC(X)$
+is a Hermitian embedding.
+\end{prop}
+
+\begin{proof}
+Let $\ckf$ be a point in $\KC(Y)$ and $\kf = \Im \ckf$. The volume of
+$X$ with respect to $f^*\kf$ is
+\begin{equation*}
+  \Vol(X,f^*\kf) = p \, \Vol(Y,\kf)
+\end{equation*}
+as $f$ is finite of degree $p$. It follows that $f^*$ is an embedding.
+\end{proof}
+
+\begin{coro}
+The group $\Aut X$ of holomorphic automorphisms of $X$ acts by
+isometries on the K\"{a}hler cone $\KC(X)$.
+\end{coro}
+
+A closer look reveals that this last statement contains less information
+than first meets the eye. The automorphism group $\Aut X$ of a compact
+complex manifold is a Lie group and it splits roughly into two parts; a
+positive-dimensional group given by the flows of holomorphic vector
+fields, or elements of $\coho{0}(X,T_X)$, and a discrete part consisting of
+``other'' automorphisms. The isomorphisms generated by vector fields act
+trivially on the cohomology ring of $X$, so the only part of $\Aut X$
+that possibly acts by nontrivial isometries on $\KC(X)$ is discrete.
+
+
+
+\bibliographystyle{alpha}
+\bibliography{main}
+
+\end{document}
