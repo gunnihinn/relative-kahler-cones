@@ -6,6 +6,7 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage[pdftex]{hyperref}
 \usepackage{setspace}
+\usepackage{color}
 \setstretch{1.1}
 
 \title[The complex geometry of K\"{a}hler cones]
@@ -46,6 +47,10 @@
 
 %% Cohomology groups
 \def\coho#1{\mathrm{H}^{#1}}
+
+%% Metric and associated operators
+\def\met#1#2{\langle #1, \ov{#2} \rangle}
+\def\Lef{\Lambda}
 
 %% Connection and curvature
 \def\chern{D}
@@ -96,7 +101,7 @@ semipositive form on the total space of those cones.
 
 \section{On the cone of a fixed manifold}
 
-\subsection{The K\"{a}hler cone}
+\subsection*{The K\"{a}hler cone}
 Let $X$ be a compact K\"{a}hler manifold of dimension $\dim_{\CC} X = n$.
 
 \begin{defi}
@@ -137,62 +142,67 @@ irreducible analytic set $Z$ in $X$ of dimension $p$.
 \end{theo}
 
 
-\subsection{The K\"{a}hler metric on the cone}
+\subsection*{The K\"{a}hler metric on the cone}
 
 Since the complexified K\"{a}hler cone $C$ is an open set in a complex
 vector space, we can view it as a complex manifold in its own right.
-We now pull a Hermitian form $h$ on its tangent space out of our hat
-after agreeing on some notation.
-If $\ckf$ is a point of $C$, we write $\kf = \Im \ckf$. We conspire to
-write $u\^k := u^k / k!$ for any cohomology class $u$ on $X$ and write
-$\Vol := \Vol(X,\kf) = \int_X \kf\^n$. If $\ton,\ttw$ are tangent vectors
-of $C$ at $\ckf$, we set
-\begin{equation*}
-h(\ton,\ov\ttw)_{\ckf} 
-= \q{\ton} \cdot \q{\ov{\ttw}}
-- \qq{\ton}{\ov\ttw}
-\end{equation*}
+As such, it carries a natural smooth Hermitian metric, given at each
+point $\ckf$ by the inner product that the imaginary part $\Im\ckf$
+defines on the cohomology of $X$.
+
+Before we state our first result, let's agree on some notation. If
+$\alpha$ is an element of an associative algebra, we write $\alpha\^k
+:= \alpha^k/k!$ for all $k \geq 0$. This notation is quite convenient
+for calculations with Kahler forms in the cohomology ring of $X$; I
+stole it shamelessly from Georg Schumacher.
 
 
 \begin{prop}
-The Hermitian form $h$ is a K\"{a}hler metric.
+Let $\ton,\ttw$ be elements of $T_C$ at a point $\ckf$. Let $\kf =
+\Im\ckf$ and let $\Lef$ be the adjoint of the Lefschetz operator that
+$\kf$ defines.  The Hermitian metric on $C$ can be defined in any of the
+following ways.
+\begin{enumerate}
+    \item 
+$$
+\met{\ton}{\ttw}
+= \q{\ton} \cdot \q{\ov{\ttw}}
+- \qq{\ton}{\ov\ttw}.
+$$
+    \item
+\hfil
+$
+\met{\ton}{\ttw}
+= \Lef(\ton)\Lef(\ov\ttw)
+- \Lef\^2(\ton\wedge\ov\ttw).
+$
+\hfil
+    \item
+The metric is the Hermitian form associated to 
+$-4\d\dbar\frac{i}{2}\Vol$, where $\Vol : C \to \RR$, $\ckf \mapsto
+\Vol(X,\Im\ckf)$.
+\end{enumerate}
+It follows that this Hermitian metric is a K\"{a}hler metric.
 \end{prop}
 
 
 \begin{proof}
-We first justify that $h$ is positive-definite. Using the hard
-Lefschetz theorem, we decompose a tangent vector as $\ton = \ton_0 \kf +
-\ton_1$, where $\ton_0$ is a scalar and $\ton_1$ is a $\kf$-primitive
-$(1,1)$-class.  Plugging this into the definition of $h$ eventually
-shows that
-\begin{equation*}
-h(\ton,\ov\ton)
-= n \, \|\ton_0\|^2
-- \qq{\ton_1}{\ov\ton_1} 
-= n \, \|\ton_0\|^2
-+ \frac{1}{\Vol} \|u_1\|^2,
-\end{equation*}
-where the norm is the one defined by $\kf$ on the cohomology ring of
-$X$.
+That $(1)$ and $(2)$ define the same Hermitian form is a simple
+calculation based on the adjoint property of $\Lef$, and that $(2)$
+agrees with the inner product that $\kf$ defines can be seen by taking
+the primitive decomposition of $\ton$ and $\ttw$, plugging it into $(2)$
+and calculating until the Hodge--Riemann bilinear relations say that we
+have the correct inner product.
 
-Next we note that $\Vol : C \to \RR$ is a smooth function on the
-complexified K\"{a}hler cone and claim that $-4 \Vol$ is a potential for
-$h$. For this, remark that $\kf = \Im \ckf = (\ckf - \ov\ckf)/2i$ and
-that we can view $\ckf$ as the tautological section $C \to T_C$
+Note that we can view $\ckf$ as the tautological section $C \to T_C$
 associated to the tangent bundle of any open set in a vector space.
-It follows that $\d\kf = \frac{1}{2i} \d\ckf$ and 
+Since $\kf = \Im\kf$, we have $\d\kf = \frac{1}{2i} \d\ckf$ and 
 $\dbar\kf = -\frac{1}{2i} \dbar\ckf$, where $d = \d + \dbar$ is
 the exterior derivative on the vector space $\coho{1,1}(X,\CC)$.
-
 We now have
-$$
-\dbar \log \Vol
-= \q{-\tfrac{i}{2i}\dbar\ckf}
-$$
-so we get
 \begin{equation*}
 \displaylines{
-\phi := -4 \cdot \tfrac{i}{2}\d\dbar \log \Vol
+-4 \cdot \tfrac{i}{2}\d\dbar \log \Vol
 = 
 \frac{i}{2}
 \q{\d\ckf} \cdot \q{\dbar\ckf}
@@ -200,8 +210,30 @@ so we get
 - \frac{i}{2} \qq{\d\ckf}{\dbar\ckf}
 }
 \end{equation*}
-after being careful about sign errors. If we now pick tangent fields
-$\ton, \ttw$ of $C$, we find $\phi(\ton,\ov\ttw) = h(\ton,\ov\ttw)$.
+after being careful about sign errors. The Hermitian form associated to
+this closed form is clearly $(1)$.
+\end{proof}
+
+
+We record here the basic commutation results on the Lefschetz operator
+and its adjoint that we use.
+
+
+\begin{prop}
+Let $\kf$ be a K\"{a}hler class, $L$ the associated Lefschetz operator and
+$\Lef$ its adjoint. The following hold for classes of degree $k$:
+\begin{itemize}
+\item $[L,\Lef] = (k-n)\id$.
+\item $[L\^i,\Lef] = (k-n+i-1)L\^{i-1}$.
+\item $[L,\Lef\^i] = (k-n+i-1)\Lef\^{i-1}$.
+\end{itemize}
+\end{prop}
+
+
+\begin{proof}
+The first identity is classical, the second is proved in
+\cite[Corollary~1.64]{HuybrechtsGeometry}, and the third follows from
+the second by taking adjoints. 
 \end{proof}
 
 
@@ -242,7 +274,7 @@ we work on all of it. This doesn't change anything important.
 
 
 
-\subsection{The Chern connection and curvature form}
+\subsection*{The Chern connection and curvature form}
 
 The Chern connection on a holomorphic vector bundle with a Hermitian
 metric $h$ is the unique connection that is compatible with the metric
@@ -262,8 +294,8 @@ The Chern connection of the K\"{a}hler metric on $\KC$ is
 $$
 \chern \ton
 = d\ton 
-- h(\d \kf, \kf)\, \ton
-- h (\ton, \kf)\, \d\kf 
+- \langle \d \kf, \kf \rangle \, \ton
+- \langle \ton, \kf \rangle \, \d\kf 
 + \Lambda(\ton \wedge \d\kf).
 $$
 \end{prop}
@@ -325,40 +357,40 @@ Putting these together, we take a deep breath and calculate
 \bil
 {}= 
 \hfill
-- \q{\d\kf} \cdot \q{\ton} \cdot \q{\ov\ttw}
-\quad(1)\cr\hfill
-{}+ \q{\d\ton}\cdot \q{\ov\ttw}
-\quad(2)\cr\hfill
+\textcolor{green}{- \q{\d\kf} \cdot \q{\ton} \cdot \q{\ov\ttw}}
+%\quad(1)
+\cr\hfill
+\textcolor{red}{{}+ \q{\d\ton}\cdot \q{\ov\ttw}}
+%\quad(2)
+\cr\hfill
 {}+ \qq{\ton}{\d\kf}\cdot \q{\ov\ttw}
-\quad(3)\cr\hfill
-{}- \q{\ton} \cdot \q{\d\kf} \cdot \q{\ov\ttw} 
-\quad(4)\cr\hfill
-{}+ \q{\ton} \cdot \qq{\ov\ttw}{\d\kf}
-\quad(5)\cr\hfill
-{}+ \q{\d\kf} \cdot \qq{\ton}{\ov\ttw}
-\quad(6)\cr\hfill
-{}- \qq{\d\ton}{\ov\ttw}
-\quad(7)\cr\hfill
+%\quad(3)
+\cr\hfill
+\textcolor{blue}{{}- \q{\ton} \cdot \q{\d\kf} \cdot \q{\ov\ttw}}
+%\quad(4)
+\cr\hfill
+\textcolor{blue}{{}+ \q{\ton} \cdot \qq{\ov\ttw}{\d\kf}}
+%\quad(5)
+\cr\hfill
+\textcolor{green}{{}+ \q{\d\kf} \cdot \qq{\ton}{\ov\ttw}}
+%\quad(6)
+\cr\hfill
+\textcolor{red}{{}- \qq{\d\ton}{\ov\ttw}}
+%\quad(7)
+\cr\hfill
 {}- \qqq{\ton}{\d\kf}{\ov\ttw}.
-\quad(8)
-}
-\end{equation*}
-We can simplify some of these expressions. For example
-\begin{align*}
-(2) + (7) &= h(\d\ton, \ov\ttw),
-\\
-(1) + (6) &= -h(\d\kf, \kf) \cdot h(\ton, \ov\ttw),
-\\
-(4) + (5) &= -h(\ton, \kf) \cdot h(\d\kf, \ov\ttw),
-\end{align*}
-leaving only the two pieces
-\begin{equation*}
-\displaylines{
-(3) + (8) 
-\hfill\cr\hfill
+%\quad(8)
+\cr
+\bil
 {}=
-\qq{\ton}{\d\kf}\cdot \q{\ov\ttw}
-- \qqq{\ton}{\d\kf}{\ov\ttw}.
+\textcolor{red}{h(\d\ton, \ov\ttw)}
+\textcolor{green}{- h(\d\kf, \kf) \cdot h(\ton, \ov\ttw)}
+\textcolor{blue}{- h(\ton, \kf) \cdot h(\d\kf, \ov\ttw)}
+\hfill
+\cr\hfill
+{}+ \qq{\ton}{\d\kf}\cdot \q{\ov\ttw}
+\cr\hfill
+{}- \qqq{\ton}{\d\kf}{\ov\ttw}.
 }
 \end{equation*}
 By Lemma~\ref{lemm:hodgeproduct} there exists a unique vector $\ton
@@ -370,23 +402,18 @@ By Lemma~\ref{lemm:hodgeproduct} there exists a unique vector $\ton
 \tfrac{n-1}{n-2} \ton \star \d\kf \wedge \kf\^{n-1}
 &= \ton \wedge \d\kf \wedge \kf\^{n-2}.
 \end{align*}
-Then we can write
-\begin{align*}
-(3) + (8)
-&= 
+Then we have
+\begin{equation*}
+\displaylines{
 \frac{n-1}{n-2} 
 \q{\ton \star \d\kf}\cdot\q{\ov\ttw}
-\\
-&
-\qquad
-\qquad
-\qquad
 - \qq{\ton \star \d\kf}{\ov\ttw}.
-\\
-&=\tfrac{1}{n-2} 
+\hfill\cr\hfill{}
+=\tfrac{1}{n-2} 
 h(\ton \star \d\kf, \kf) \cdot h(\kf, \ov\ttw)
 + h(\ton \star \d\kf, \ov\ttw)
-\end{align*}
+}
+\end{equation*}
 Putting this all together, we get
 \begin{align*}
 \chern \ton 
@@ -482,47 +509,58 @@ which is equivalent to the second result.
 \end{proof}
 
 
-\begin{coro}
+\begin{lemm}
 \label{coro:kahlerform}
-\hfil
-$\chern \kf = -\d\kf + \dbar\kf$.
-\hfil
-\end{coro}
+$\chern^{1,0} \kf = -\d\kf$.
+\end{lemm}
 
 
 \begin{proof}
-By Proposition~\ref{prop:chernconnection} we have 
+Let $\ton$ be a tangent field on $\KC$ and consider the equation
+$\langle \ton, \kf \rangle = \Lef \ton$. Upon differentiating this in
+the direction of $\ttw$ we get
 $$
-\chern \kf = 
-d\kf
-- h(\d \kf, \kf)\, \kf 
-- h (\kf, \kf)\, \d\kf 
-+ \Lambda(\kf \wedge \d\kf).
+\langle \chern_{\ttw}\ton, \kf \rangle 
++ \langle \ton, \chern_{\ttw}\kf \rangle 
+= (d_{\ttw}\Lef) \ton
++ \Lef d_{\ttw}\ton
+= \tfrac{1}{2}i \langle \ton, \ttw\rangle
++ \Lef d_{\ttw}\ton.
 $$
-From $[L,\Lambda] \d\kf = (2-n)\d\kf$ we get $\Lambda (\kf \wedge \d\kf) =
-h(\d\kf,\kf)\kf + (n-2) \d\kf$, so
+Proposition~\ref{prop:chernconnection} now gives
 $$
-D \kf = 
-d\kf
-- h(\d \kf, \kf)\, \kf 
-- n\, \d\kf 
-+ h(\d\kf,\kf)\kf + (n-2) \d\kf
-= -\d\kf + \dbar\kf.
+\displaylines{
+\langle \chern_{\ttw}\ton, \kf \rangle 
+=
+\Lef(d_{\ttw}\ton)
+- i\Lef\ton\cdot \Lef\ttw
++ i\Lef\^2(\ton \wedge \ttw)
+}
+$$
+so
+\begin{align*}
+\langle \ton, \chern_{\ttw}\kf \rangle
+&=
+-\tfrac{1}{2}i \Lef\ton \cdot \Lef \ttw
++\tfrac12 i \Lef\^2(\ton \wedge \ttw)
++ i\Lef\ton\cdot \Lef\ttw
+- i\Lef\^2(\ton \wedge \ttw)
+\\
+&=
+\langle \ton, -\tfrac{1}{2i} \ttw \rangle
+= \langle \ton, -\d\kf(\ttw) \rangle.
 \qedhere
-$$
+\end{align*}
 \end{proof}
 
 
 \begin{theo}
-The curvature form of the K\"{a}hler metric on $\KC$ is
+The curvature tensor of the K\"{a}hler metric on $\KC$ is
 \begin{equation*}
-\displaylines{
-h\bigl(\curv_{\tth,\ov\tfo}\, \ton, \ov\ttw\bigr)
+R(\ton,\ov\ttw,\tth,\ov\tfo)
 = - \tfrac14 h(\ton,\ov\ttw)\, h(\tth,\ov\tfo)
-+ \tfrac14 h (\ton,\ov\tfo)\, h(\tth,\ov\ttw)
-\hfill\cr\hfill{}
-+ \frac14 \qqqq{\ton}{\ov\ttw}{\tth}{\ov\tfo}.
-}
+- \tfrac14 h (\ton,\ov\tfo)\, h(\tth,\ov\ttw)
++ \tfrac14 \langle \ton \wedge \tth, \ov{\ttw\wedge\tfo} \rangle.
 \end{equation*}
 \end{theo}
 
@@ -533,54 +571,74 @@ By definition, we have $\curv = \chern^2$ and since our connection is
 Hermitian, we get $\curv = \dbar \chern$ on holomorphic sections.
 Note that since $\kf = \Im \alpha$, we have $\d\dbar \kf = 0$.
 Proposition~\ref{prop:chernconnection} and
-Corollary~\ref{coro:kahlerform} now give
+Lemma~\ref{coro:kahlerform} now give
 \begin{align*}
-\dbar \chern \ton
-&=\dbar\bigl( d\ton 
-- h(\d \kf, \kf)\, \ton
-- h (\ton, \kf)\, \d\kf 
-+ \Lambda(\ton \wedge \d\kf)\bigr)
+\dbar_{\ov\tfo} \chern_{\tth} \ton
+&=
+- \tfrac{1}{2i} \langle \tth,\ov{\chern^{1,0}_{\tfo}\kf} \rangle\, \ton
+- \tfrac{1}{2i} \langle \ton, \ov{\chern^{1,0}_{\tfo}\kf} \rangle\, \tth
++ \tfrac{1}{2i} \dbar(\Lambda(\ton \wedge \tth))
 \\
 &=
-h(\d \kf,\ov{\chern^{1,0}\kf})\, \ton
-- h (\ton, \ov{\chern^{1,0}\kf})\, \d\kf 
-+ \dbar(\Lambda(\ton \wedge \d\kf))
-\\
-&=
-- h(\d \kf,\dbar\kf)\, \ton
-+ h (\ton,\dbar\kf)\, \d\kf 
-+ (\dbar\Lambda)(\ton \wedge \d\kf),
+- \tfrac{1}{4} \langle \tth,\ov{\tfo} \rangle\, \ton
+- \tfrac{1}{4} \langle \ton, \ov{\tfo} \rangle\, \tth
++ \tfrac{1}{2i} \dbar(\Lambda(\ton \wedge \tth)).
 \end{align*}
-where we consider $\Lambda$ as a linear morphism on $\coho{*}(X,\CC)$
-that depends on the parameter $\kf$. (Recall that $\d\kf$ is a one-form
-on $\KC$ with values in the tangent bundle, so the signs involved in
-passing the connection inside the metric are correct.)
-
-Let's denote the usual inner product that $\kf$ defines
-on $\coho{*}(X,\CC)$ by $\langle\,\cdot\,,\,\cdot\,\rangle$. Formally
-differentiating the identity $\langle \Lambda\alpha, \ov\beta\rangle =
-\langle \alpha, \kf \wedge \beta\rangle$ gives
+Upon taking the inner product with $\ttw$, we then get
 $$
-\langle (\dbar\Lambda)\alpha, \ov\beta \rangle
-= \langle \alpha, \dbar\kf \wedge \ov\beta \rangle
-$$
-for any $k$-classes $\alpha, \beta$ after tidying up a little. 
-Recall that $\kf = \Im \alpha$, where $\alpha$ is the tautological
-section of $T_{\KC}$. Thus $\d\kf(\tth) = \frac{1}{2i}\tth$ 
-and $\dbar\kf(\ov\tfo) = -\frac{1}{2i}\ov\tfo$. Taking inner products and
-minding the volume factor, we now get
-$$
-h\bigl(\curv_{\tth,\ov\tfo}\, \ton, \ov\ttw\bigr)
-= - \tfrac14 h(\ton,\ov\ttw)\, h(\tth,\ov\tfo)
-+ \tfrac14 h (\ton,\ov\tfo)\, h(\tth,\ov\ttw)
-+ \frac14 \frac{1}{\Vol} \langle \ton \wedge \tth, \ov{\ttw\wedge\tfo} \rangle.
+R(\ton,\ov\ttw,\tth,\ov\tfo)
+= -\tfrac14
+\langle \ton, \ov\ttw \rangle
+\langle \tth,\ov{\tfo} \rangle
+-\tfrac14
+\langle \ton, \ov{\tfo} \rangle
+\langle \tth, \ov\ttw \rangle
++ \tfrac{1}{4} \langle \ton \wedge \tth, \ov{\ttw \wedge \tfo}\rangle.
 \qedhere
 $$
 \end{proof}
 
 
+\begin{coro}
+The derived curvature tensors are as follows.
 
-\subsection{Completeness}
+\smallskip
+\noindent
+$\bullet$
+Holomorphic bisectional curvature:
+$$
+B(\ton,\ov\ttw) 
+= -\tfrac14 |\ton|^2 |\ttw|^2
+- \tfrac14 |\met{\ton}{\ttw}|^2
++ \tfrac14 |\ton \wedge \ttw|^2
+$$
+\smallskip
+\noindent
+$\bullet$
+Holomorphic sectional curvature:
+$$
+H(\ton) 
+=
+-\tfrac12 |\ton|^2
++\tfrac14 |\ton \wedge \ton|^2
+$$
+\smallskip
+\noindent
+$\bullet$
+Ricci curvature:
+$$
+r(\ton, \ov\ttw) 
+=
+-\tfrac14(n+1) \met{\ton}{\ttw}
++ \sum_{j=1}^{h^{1,1}} \met{\ton\wedge x_j}{\ttw \wedge x_j},
+$$
+where $(x_1,\ldots,x_{h^{1,1}})$ is an orthonormal basis.
+\end{coro}
+
+
+
+
+\subsection*{Completeness}
 
 The theorem of Demailly and Paun describes the boundary of the
 K\"{a}hler cone of a compact complex manifold. It consists of three
@@ -702,7 +760,7 @@ exists, so the length of $\gamma$ can be bounded by above by
 $\int_I M(t) dt$.
 \end{proof}
 
-\subsection{Pullbacks}
+\subsection*{Pullbacks}
 
 A holomorphic map $f : X \to Y$ between compact K\"{a}hler manifolds induces
 a morphism $f^* : \coho{*}(Y,\CC) \to \coho{*}(X,\CC)$ in cohomology
