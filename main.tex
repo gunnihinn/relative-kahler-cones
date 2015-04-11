@@ -9,8 +9,7 @@
 \usepackage{color}
 \setstretch{1.1}
 
-\title[The complex geometry of K\"{a}hler cones]
-{The complex geometry\\of K\"{a}hler cones}
+\title{Curvature of complexified K\"{a}hler moduli}
 \author{Gunnar Þór Magnússon}
 
 \newtheorem{theo}{Theorem}[section]
@@ -24,6 +23,7 @@
 \theoremstyle{remark}
 \newtheorem*{rema}{Remark}
 
+\newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
@@ -37,6 +37,17 @@
 
 \def\ov#1{\overline{#1}}
 
+%% Double inner product
+\def\llangle{\langle\!\langle}
+\def\rrangle{\rangle\!\rangle}
+
+%% Weil--Petersson part
+\def\rel{\CR^0\pi_*\smash{\Omega_{X/S}^n}}
+\def\relt{\CR^0\pi_*\Omega_{\widetilde{X}/S}^n}
+\def\CO{\mathcal{O}}
+\def\CX{\mathcal{X}}
+\def\CR{\mathcal{R}}
+
 %% Operators
 \DeclareMathOperator{\Gr}{Gr}
 \DeclareMathOperator{\Hom}{Hom}
@@ -44,6 +55,11 @@
 \def\dbar{\bar\partial}
 
 \def\p{\times}
+
+%% Letters
+\def\cR{\mathcal{R}}
+\def\cO{\mathcal{O}}
+\def\cX{\mathcal{X}}
 
 %% Cohomology groups
 \def\coho#1{\mathrm{H}^{#1}}
@@ -55,6 +71,7 @@
 %% Connection and curvature
 \def\chern{D}
 \def\conn{\nabla}
+\def\conngm{\nabla_{\mathrm{GM}}}
 \def\curv{\tfrac{i}{2\pi}\Theta}
 
 %% Intersection products with a Ahler form
@@ -66,6 +83,8 @@
 %% The K\"{a}hler form and class of a Hermitian metric
 \def\kf{\omega}
 \def\ckf{\alpha}
+\def\kcForm{\Omega}
+\def\kcHerm{h_R}
 
 %% Vertical and horizontal vectors
 \def\ver#1{#1^{\mathrm{V}}}
@@ -76,6 +95,10 @@
 \def\ttw{v}
 \def\tth{z}
 \def\tfo{w}
+\def\TKCon{\xi}
+\def\TKCtw{\nu}
+\def\TKCth{\eta}
+\def\TKCfo{\chi}
 
 %% Algebra power
 \def\^#1{^{[#1]}}
@@ -88,11 +111,13 @@
 
 \begin{abstract}
 The complexified K\"{a}hler cone of a compact manifold carries a natural
-Hermitian metric, given by the intersection product of its cohomology
-ring. We show that this metric is K\"{a}hler and calculate its curvature
-tensor. We also give a relative version of this metric on the K\"{a}hler
-cones of a family of manifolds and show that it extends to a closed
-semipositive form on the total space of those cones.
+Hermitian metric. We show that this metric is K\"{a}hler, calculate
+its curvature and show that its holomorphic sectional curvature is
+negative. We also give a relative version of this metric on the
+K\"{a}hler cones of a family of manifolds and show that it extends to a
+closed semipositive form on the total space of those cones. For families
+of compact Kahler manifolds with zero first Chern class, we then obtain
+a natural Kahler metric on the total space.
 \end{abstract}
 
 \maketitle
@@ -100,6 +125,7 @@ semipositive form on the total space of those cones.
 
 
 \section{On the cone of a fixed manifold}
+\label{section:fixemanifold}
 
 \subsection*{The K\"{a}hler cone}
 Let $X$ be a compact K\"{a}hler manifold of dimension $\dim_{\CC} X = n$.
@@ -268,8 +294,10 @@ makes perfect sense in the real case, since the K\"{a}hler cone is isometric
 to the positive real line times such a subset and this restriction lets
 us work only with primitive forms. Our metric (or rather its real version)
 is the same as Wilson's metric once restricted to this subset.  I don't
-see a similar useful complex subspace of the complexified K\"{a}hler cone, so
-we work on all of it. This doesn't change anything important.
+see a similar useful complex subspace of the complexified K\"{a}hler
+cone so we work on all of it. This doesn't change anything important; if
+anything it simplifies our life by letting us forget about projections
+to primitive cohomology.
 \end{rema}
 
 
@@ -294,9 +322,9 @@ The Chern connection of the K\"{a}hler metric on $\KC$ is
 $$
 \chern \ton
 = d\ton 
-- \langle \d \kf, \kf \rangle \, \ton
-- \langle \ton, \kf \rangle \, \d\kf 
-+ \Lambda(\ton \wedge \d\kf).
+- \Lef(\d \kf) \, \ton
+- \Lef(\ton) \, \d\kf 
++ \Lef(\ton \wedge \d\kf).
 $$
 \end{prop}
 
@@ -599,6 +627,39 @@ $$
 \end{proof}
 
 
+\begin{proof}[Alternate proof]
+Let $\ton,\ttw,\tth,\tfo$ be local holomorphic sections of the tangent
+bundle of $\KC$.  By definition, we have $\curv = \chern^2$ and since
+our connection is the Chern connection, we get $\curv = \dbar \chern$ on
+holomorphic sections. Proposition~\ref{prop:chernconnection} now gives
+\begin{align*}
+\dbar_{\ov\tfo} \chern_{\tth} \ton
+&=
+\dbar_{\ov\tfo} \d_{\tth}\ton
+- \tfrac{1}{2i} ((\dbar_{\ov\tfo}\Lef) \tth)\ton
+- \tfrac{1}{2i} ((\dbar_{\ov\tfo}\Lef) \ton)\tth
++ \tfrac{1}{2i} (\dbar_{\ov\tfo}\Lef)(\ton\wedge\tth)
+\\
+&=
+- \tfrac{1}{4} \langle \tth,\ov{\tfo} \rangle\, \ton
+- \tfrac{1}{4} \langle \ton, \ov{\tfo} \rangle\, \tth
++ \tfrac{1}{2i} (\dbar_{\ov\tfo}\Lef)(\ton \wedge \tth).
+\end{align*}
+Upon taking the inner product with $\ttw$, we then get
+$$
+R(\ton,\ov\ttw,\tth,\ov\tfo)
+= -\tfrac14
+\langle \ton, \ov\ttw \rangle
+\langle \tth,\ov{\tfo} \rangle
+-\tfrac14
+\langle \ton, \ov{\tfo} \rangle
+\langle \tth, \ov\ttw \rangle
++ \tfrac{1}{4} \langle \ton \wedge \tth, \ov{\ttw \wedge \tfo}\rangle.
+\qedhere
+$$
+\end{proof}
+
+
 \begin{coro}
 The derived curvature tensors are as follows.
 
@@ -608,9 +669,13 @@ $\bullet$
 Holomorphic bisectional curvature:
 $$
 B(\ton,\ov\ttw) 
-= -\tfrac14 |\ton|^2 |\ttw|^2
+= 
+\bigl(-\tfrac14 |\ton|^2 |\ttw|^2
 - \tfrac14 |\met{\ton}{\ttw}|^2
 + \tfrac14 |\ton \wedge \ttw|^2
+\bigr)
+\bigm/
+|\ton|^2|\ttw|^2
 $$
 \smallskip
 \noindent
@@ -619,8 +684,12 @@ Holomorphic sectional curvature:
 $$
 H(\ton) 
 =
--\tfrac12 |\ton|^2
+\bigl(
+-\tfrac12 |\ton|^4
 +\tfrac14 |\ton \wedge \ton|^2
+\bigr)
+\bigm/
+|\ton|^4
 $$
 \smallskip
 \noindent
@@ -634,6 +703,83 @@ r(\ton, \ov\ttw)
 $$
 where $(x_1,\ldots,x_{h^{1,1}})$ is an orthonormal basis.
 \end{coro}
+
+\begin{coro}
+The holomorphic sectional curvature of the metric is negative and
+bounded; we have
+$$
+-\frac12 \leq H(\ton) \leq -\frac{1}{2n} < 0.
+$$
+The scalar curvature of the metric is also negative and bounded and
+satisfies 
+$$
+-\frac{h^{1,1}(h^{1,1}+1)}{2} \leq s \leq -\frac{h^{1,1}(h^{1,1}+1)}{2n} < 0
+$$
+at all points on $\KC$.
+\end{coro}
+
+
+\begin{proof}
+The lower bound on the holomorphic sectional curvature is immediate. For
+the upper bound, C.N.~Yang proved that 
+$$
+\| \ton \wedge \ttw \|^2
+\leq \frac{2n-2}{n} \|\ton\|^2 \|\ttw\|^2
+$$
+for $(1,1)$-forms on a complex vector space of dimension $n$.
+(The constant is the best possible, as we see by taking multiples of the
+Kahler form.) Now represent our classes by forms that are harmonic with
+respect to an arbitrary Kahler metric in our Kahler class. Then this
+inequality holds pointwise on the underlying manifold. The wedge product
+of harmonic forms is usually not harmonic, so the integral of the
+norm of the wedge product of our forms is not the cohomological norm; it
+is bigger, because the wedge product of the harmonic forms represents the
+wedge product of the classes, and the harmonic forms are the forms of
+minimal volume in their equivalence class. Integrating over the
+manifold, we thus obtain the inequality on the level of cohomology.
+Applying this inequality to the holomorphic sectional curvature, we get
+$$
+H(\ton) 
+\leq 
+\tfrac14
+\bigl( \tfrac{n-2}{n} \|\ton\|^4 - \|\ton\|^4\bigr) \bigm/ \|u\|^4
+= -\tfrac{1}{2n}.
+$$
+
+For the scalar curvature, it is known that the average of the
+holomorphic sectional curvature over the unit tangent sphere over a
+point of our manifold is equal to $s / h^{1,1}(h^{1,1}+1)$. This gives
+the announced result.
+\end{proof}
+
+
+\begin{rema}
+The holomorphic bisectional curvature is also bounded below;
+dropping the $|\ton\wedge\ttw|^2$ term and applying Cauchy--Schwarz
+gives
+$$
+-\tfrac12 \leq B(\ton,\ttw).
+$$
+By constrast, Yang's estimate only gives
+$$
+B(\ton,\ttw)
+\leq 
+\tfrac14
+\bigl( \tfrac{n-2}{n} \|\ton\|^2 \|\ttw\|^2 
+- |\langle \ton, \ov\ttw\rangle|^2\bigr)
+\bigm/ \|\ton\|^2\|\ttw\|^2,
+$$
+suggesting that the holomorphic bisectional curvature of this metric is
+of mixed sign. 
+
+Similarly, it's immediate that the Ricci curvature satisfies
+$$
+-\tfrac14(n+1)\|\ton\|^2 \leq r(\ton,\ov\ton),
+$$
+but Yang's estimate may not say anything about an upper bound; the naive
+estimate involving the triangle inequality and Cauchy--Schwarz is too
+brutal to give anything interesting.
+\end{rema}
 
 
 
@@ -797,6 +943,756 @@ fields, or elements of $\coho{0}(X,T_X)$, and a discrete part consisting of
 ``other'' automorphisms. The isomorphisms generated by vector fields act
 trivially on the cohomology ring of $X$, so the only part of $\Aut X$
 that possibly acts by nontrivial isometries on $\KC(X)$ is discrete.
+
+
+\section{The relative K\"{a}hler cone}
+\label{sefi}
+
+
+\subsection*{Complex structure and connection}
+
+Let $\pi : \cX \to S$ be a family of compact K\"{a}hler manifolds over
+a smooth base $S$. Recall that there is a holomorphic vector bundle
+$E^{1,1} \to S$ whose fibers are $E^{1,1}_s = H^{1,1}(X_s,\CC)$. The
+\emph{complexified relative K\"{a}hler cone} of a family $\pi : \cX
+\to   S$ is the subset $\RKC$ of $p : E^{1,1} \to S$ that consists
+of the complexified K\"{a}hler cones of each manifold $X_s$.
+
+\begin{prop}
+The relative K\"{a}hler cone $\RKC$ is open in the total space of
+the vector bundle $E^{1,1}$.
+\end{prop}
+
+\begin{proof}[Sketch of proof.]
+We adapt the proof of Kodaira--Spencer \cite{KodairaSpencerIII} of
+the fact that the K\"{a}hler condition is open in families. Given a
+point $(a_0,s_0)$ in $\RKC$, we find a relative K\"{a}hler metric that
+interpolates that point. The metrics thus obtained on each manifold
+in the family permit us to identify cohomology classes with harmonic
+forms on each manifold.
+
+After restricting to the inverse image of a relatively compact
+neighborhood of the point $s_0$, we note that the unit ball
+fibration in $T_{\cX/S}$ is compact over the closure of that
+neighborhood. Since positivity of forms can be tested on that
+fibration, we obtain an open ball in $\RKC$ around $(a_0,s_0)$
+that is contained in $E^{1,1}$.
+\end{proof}
+
+The proposition entails that the complexified relative K\"{a}hler cone is
+a complex manifold. It is equipped with a surjective submersion $p :
+\RKC \to S$ inhereted from its ambient vector bundle, but is not
+necessarily locally trivial since the K\"{a}hler cone may vary in
+families
+\cite{DemaillyPaun}.
+
+
+The vector bundle $E^{1,1} \to S$ is equipped with a smooth connection
+$\conn$; it is the connection induced by embedding $E^{1,1}
+\hookrightarrow E^2$ smoothly, applying the Gauss--Manin connection on
+$E^2$ and projecting the result onto $(1,1)$-classes. Since $\RKC$
+is open in $E^{1,1}$, it inherits this connection.
+
+
+\begin{prop}
+The $(0,1)$-part of $\conn$ is $\dbar$.
+\end{prop}
+
+
+\begin{proof}
+If $u$ is a local section of $E^{1,1}$, then by definition we have
+$$
+\conn^{0,1} u = q (\conngm^{0,1} j(u))
+= q ((\dbar j) (u))
++ q (j(\dbar u))
+= q ((\dbar j) (u))
++ \dbar u. 
+$$
+If the inclusion morphism $j : E^{1,1} \hookrightarrow E^2$ were
+holomorphic (which happens if the two bundles are equal) then we'd have
+$\dbar j = 0$ and be done.  Since in general it isn't we have to
+work a little more.
+
+Consider the Grassmannian $G := \Gr(h^{1,1}, H^2(X_{s_0},\CC))$ of
+$h^{1,1}$-dimensional complex subspaces of $H^2(X_{s_0},\CC)$, where
+$s_0$ is some point in the neighborhood our section $u$ is defined on.
+The inclusion map $j : E^{1,1} \hookrightarrow E^2$ can be viewed as a
+smooth map $j : S \to G$ and the Hodge decomposition gives an orthogonal
+complement $j(s)^{\perp} = H^{2,0}(X_s, \CC) \oplus H^{0,2}(X_s, \CC)$ to
+$j(s) = H^{1,1}(X_s, \CC)$ for every point $s$. By describing an open
+neighborhood in the Grassmannian around $j(s)$ using this orthogonal
+splitting, we see that $\dbar j$ corresponds to
+$$
+\dbar j : T_{S,s}^{0,1}
+\to 
+T_{G, j(s)}^{0,1}
+\cong
+\Hom_{\ov{\CC}}(j(s), j(s)^{\perp}).
+$$
+But since $q$ is the orthogonal projection onto $j(s)$, we have
+$q(\dbar j) = 0$.
+\end{proof}
+
+
+\subsection*{Closed Hermitian form}
+
+Consider the relative tangent space $T_{\RKC/S}$ over $\RKC$. It carries
+a natural smooth Hermitian metric, just as in
+Section~\ref{section:fixemanifold}, that can be defined in any of the
+same ways.
+
+\begin{theo}
+The Hermitian metric on $T_{\RKC/S}$ extends to a closed semipositive
+Hermitian form $\kcForm$ on all of $\RKC$.
+\end{theo}
+
+
+\begin{proof}
+We define $\kcForm = -4 \frac{i}{2}\partial\dbar \Vol$, where
+$\Vol : \RKC \to \RR$ is the volume function. Since $\Vol$ is
+smooth and real, this defines a smooth, real $(1,1)$-form on
+$\RKC$, whose associated Hermitian form $\kcHerm$ on $T_{\RKC}$
+satisfies $\kcHerm(X, Y) = -4\partial_{X} \dbar_{\ov{Y}} \Vol$ and
+obviously extends the metric on the relative tangent space to the whole
+tangent space.
+
+The form is closed by construction, so it remains to prove that it is
+semipositive on $\RKC$.  The associated Hermitian form $\kcHerm$ is
+positive-definite on $T_{\RKC/S}$, so it induces a smooth splitting
+$T_{\RKC} \cong T_{\RKC/S} \oplus p^*T_S$. 
+
+\begin{lemm}
+\label{lemm:orthogonal.split}
+In a local holomorphic trivialization $E^{1,1}|_U \cong \CC^r \times U$,
+the splitting defined by $\kcHerm$ on $T_{\RKC}$ is 
+$$
+X 
+= X^{\mathrm{V}} + X^{\mathrm{H}}
+= (\ton + 2i \conn_{\xi}\kf)
++ (\xi - 2i \conn_{\xi}\kf),
+$$
+where $X = \ton + \xi$ under the trivialization.
+\end{lemm}
+
+Assume the lemma for a moment. Then we calculate that
+\begin{align*}
+X^{\mathrm{H}} \cdot \Vol
+&= p_*X \cdot \int_{X_s} \kf\^n
+- 2i\conn_{p_*X}\kf \cdot \int_{X_s} \kf\^n
+\\
+&= \int_{X_s} \conn_{p_*X}\kf \wedge \kf\^{n-1}
+- \int_{X_s} \frac{1}{2i} 2i \conn_{p_*X}\kf \wedge \kf\^{n-1}
+= 0,
+\end{align*}
+so the curvature form degenerates on the whole of the horizontal part of
+the smooth splitting. That only leaves the vertical part, where we
+already know it is positive-definite.
+\end{proof}
+
+
+\begin{proof}[Proof of Lemma~\ref{lemm:orthogonal.split}]
+The orthogonal splitting is described by the projection $T_{\RKC} \to
+T_{\RKC/S}$ that sends a tangent vector $X$ of $\RKC$ to the unique
+section $X^{\mathrm{V}}$ of $T_{\RKC/S}$ that satisfies
+\begin{equation}
+\label{eq:smooth.split}
+\kcHerm(X, \ov{\ttw}) = \kcHerm(X^{\mathrm{V}}, \ov{\ttw})
+\end{equation}
+for all local sections $\ttw$ of $T_{\RKC/S}$.
+
+Let's take a local trivialization $E^{1,1}|_U \cong \CC^r \times U$
+and identify the relative complexified K\"{a}hler cone with some open
+set in $\CC^r \times U$. Then the tangent bundle of $\RKC$ splits
+holomorphically as $T_{\RKC/S} \oplus p^* T_S$ over $p^{-1}(U)$.
+
+First we note that if $\xi$ is a local section of $p^*T_S$ and $v$ a
+local holomorphic section of $T_{\RKC/S}$, then
+\begin{align*}
+\kcHerm(\xi, \ov{\ttw})
+&=
+-4\partial_{\xi} \dbar_{\ov{\ttw}} \log \Vol
+\\
+&=
+-4\partial_{\xi}
+\biggl(
+\frac{1}{\Vol} 
+\int_{X_s} \frac{-1}{2i} \ov{\ttw} \wedge \kf\^{n-1}
+\biggr)
+\\
+&= 
+-4
+\biggl(
+\frac{1}{\Vol} 
+\int_{X_s} -\conn_{\xi} \kf \wedge \kf\^{n-1}
+\cdot
+\frac{1}{\Vol} 
+\int_{X_s} \frac{-1}{2i} \ov{\ttw} \wedge \kf\^{n-1}
+\\
+&
+\qquad
+\quad
+- \frac{1}{\Vol}
+\int_{X_s} 
+\biggl(
+\frac{-1}{2i} \conn_{\xi}\ov{\ttw} \wedge \kf\^{n-1}
++
+\frac{-1}{2i} \conn_{\xi}\kf \wedge \ov{\ttw} \wedge \kf\^{n-2}
+\biggr)
+\biggr)
+\\
+&= 
+-4
+\biggl(
+\frac{1}{\Vol} 
+\int_{X_s} \frac{1}{2i}\conn_{\xi} \kf \wedge \kf\^{n-1}
+\cdot
+\frac{1}{\Vol} 
+\int_{X_s} \ov{\ttw} \wedge \kf\^{n-1}
+\\
+&
+\qquad
+\qquad
+\qquad
+\qquad
+\qquad
+\qquad
+\qquad
+-
+\frac{1}{\Vol}
+\int_{X_s} 
+\frac{1}{2i}\conn_{\xi}\kf \wedge \ov{\ttw} \wedge \kf\^{n-2}
+\biggr)
+\\
+&=
+\kcHerm(2i\conn_{\xi}\kf, \ov{\ttw}),
+\end{align*}
+where $\ov{\conn_{\xi}\ov{\ttw}} = \conn_{\ov{\xi}}\ttw = 0$ because
+the $(0,1)$-part of $\conn$ is $\dbar$.  Let now $X = \ton +
+\xi$ be a tangent field on $\RKC$. Then we have 
+$$
+\kcForm(X, \ov{\ttw})
+= \kcForm(\ton + 2i \conn_{\xi}\kf, \ov{\ttw})
+$$
+for all $v$, so $X^{\mathrm{V}} = \ton + 2i \conn_{\xi}\kf$. It
+follows that the other part of the splitting is $X^{\mathrm{H}} = X
+- X^{\mathrm{V}} = \xi - 2i \conn_{\xi}\kf$.
+\end{proof}
+
+
+\begin{coro}
+\label{coro:kahlermanifold}
+If the base $S$ is K\"{a}hler, then $\RKC$ is a K\"{a}hler manifold.
+\end{coro}
+
+
+\begin{coro}
+The semipositive form $\kcForm$ is a constant multiple of the curvature
+form of a holomorphic line bundle.
+\end{coro}
+
+\begin{proof}
+Consider the holomorphic line bundle $E^{2n}$ associated to the
+coherent sheaf $\cR^{2n} \pi_* \CC \otimes_\CC \cO_S$ over $S$.
+We pull this line bundle back to $\RKC$ and equip it with a smooth
+Hermitian metric $g$ induced by the K\"{a}hler classes associated to each
+point of $\RKC$. Our claim is that the curvature form of this
+metric is $-1/4\pi$ times our form. To verify this, we describe the
+holomorphic structure of $E^{2n}$ and the metric in more detail.
+
+First we claim that the section
+$$
+\tau: \RKC \to p^*E^{2n},
+\quad
+(\ckf,s) \mapsto \kf\^n / \Vol(X,\kf),
+$$
+where $\kf = \Im \ckf$, is holomorphic and trivializes the line
+bundle $p^*E^{2n}$. For this, note that the section $\tau$ is constant
+on the fibers of $p : \RKC \to S$.  Next remark that $\tau$ satisfies
+\begin{equation*}
+\int_{X_s} \tau(\ckf,s) 
+= \frac{1}{\Vol(X_s,\kf)} \int_{X_s} \kf\^n
+= 1
+\end{equation*}
+at all points $(\ckf,s)$ of $\RKC$. It is thus dual to the
+fundamental class of each manifold $X_s$, so it is parallel with
+respect to the pullback of the Gauss--Manin connection on $E^{2n}$ to
+$\RKC$, and thus holomorphic. The section $\tau$ is also clearly
+nowhere zero, and thus trivializes $p^*E^{2n}$.
+
+General complex differential geometry now tells us that the curvature
+form of the metric on $p^*E^{2n}$ is
+\begin{equation*}
+\curv_{p^*E^{2n}, g}
+= -\tfrac{i}{2\pi}\partial \dbar \log |\tau|^2 
+= \tfrac{i}{2\pi}\partial \dbar \log \Vol(X_s,\kf)
+\end{equation*}
+at a point $(\ckf,s)$, and this is $-1/4\pi$ times our form.
+\end{proof}
+
+
+
+We've extended the Hermitian metric on $T_{\RKC/S}$ to all of
+$T_{\RKC}$ by pulling a global potential out of our hat. Since we
+have a connection $\conn$ on $\RKC$, we could also have used the
+smooth splitting provided by the connection to split the tangent bundle
+and extend our Hermitian metric to the whole bundle by setting it to
+zero on the horizontal part of the splitting. This does in fact result
+in the same metric on all of $\RKC$ because of the following:
+
+
+\begin{prop}
+The smooth splitting of $T_{\RKC}$ defined by $\conn$ is the same
+as the splitting defined by $\kcForm$.
+\end{prop}
+
+
+\begin{proof}
+Let $X$ be a tangent field on $\RKC$ near a point
+$(\ckf,s)$ and let $\tau : S \to \RKC$ be a section that is
+parallel at $(\ckf,s)$. The projection onto the vertical subspace
+defined by $\conn$ is then $X \mapsto X - d_{p_*X} \tau$. We note that
+$$
+\kcHerm(X - d_{p_*X} \tau, \ov{\ttw})
+= \kcHerm(X, \ttw) - \kcHerm(d_{p_*X} \tau, \ttw)
+$$
+for all local sections $v$ of $T_{\RKC}$. The smooth inclusion
+$j : \RKC \hookrightarrow E^2$ lets us consider $\tau$ as a smooth
+section of $E^2$. This bundle is flat, so the Gauss--Manin connection
+identifies with the exterior derivative $d$. Now, $\tau$ is parallel
+with respect to $\conn$ if and only if the class $\conngm j(\tau) = d
+(j(\tau))$ decomposes into $(2,0)$ and $(0,2)$-classes only. Then the
+intersection product
+$$
+\kcHerm(d_{p_*X} \tau, \ttw) = 0
+$$
+because the $(1,1)$-class $\ttw$ is orthogonal to $(2,0)$ and
+$(0,2)$-classes. Thus $\kcHerm(X - d_{p_*X} \tau, \ov{\ttw})
+= \kcHerm(X, \ttw)$, and the splitting defined by $\conn$ is the same
+as the one defined by $\kcHerm$.
+\end{proof}
+
+
+\subsection*{Curvature}
+
+
+Calculate the curvature form of $T_{\RKC/S}$.
+
+
+Suppose we're given a Hermitian metric $h_S$ on the base $S$. Then we
+can equip the relative complexified Kahler cone with $h = \kcHerm + 
+p^*h_S$, which is then a smooth Hermitian metric and Kahler if $h_S$ is
+Kahler. We can calculate the curvature tensor of this metric if we know
+the second fundamental form our splitting induces.
+
+
+
+
+\section{Zero first Chern class}
+
+
+We now restrict our attention to compact Kahler manifolds with zero
+first Chern class. The class of such manifolds includes complex tori, K3
+surfaces, Calabi--Yau manifolds and hyperk\"{a}hler manifolds. They have
+a rich structure that permits us to say more about them than about
+arbitrary Kahler manifolds.
+
+
+\subsection*{Weil--Petersson metric}
+
+
+Let $\pi : X \to S$ be a family of compact K\"ahler manifolds of
+dimension $n$ with zero first Chern class over a smooth base $S$. If
+the family is polarized, that is equipped with a smoothly varying
+family of K\"ahler classes whose cohomology class is constant in $s$,
+then we know how to construct a Weil--Petersson metric on the base $S$;
+see \cite{MR829406,MR784145,Tian,wang2003curvature}.
+
+This is unsatisfactory because not every family of such manifolds can be
+polarized. It also begs the question of whether two different
+polarizations result in the same Weil--Petersson metric. By working over
+the relative complexified Kahler cone we can avoid choosing a
+polarization, and still construct a satisfying Hermitian metric that
+gives rise to the Weil--Petersson one when the family can be polarized.
+
+
+
+To begin with, let $\pi : X \to S$ be a family of compact K\"ahler
+manifolds of dimension $n$ with trivial canonical bundle over a smooth
+base $S$.
+Consider the variation of Hodge structures $\rel \subset \CR^n\pi_*\CC
+\otimes_\CC \CO_S$. The intersection product on each manifold $X_s$
+(multiplied by $i^{n^2}$) defines a pseudo\-hermitian metric
+on the flat holomorphic vector bundle $\CR^n\pi_*\CC \otimes_\CC
+\nobreak\CO_S$, and the Gauss--Manin connection is the Chern connection
+of this metric. Its restriction to the holomorphic sub-line bundle
+$\rel$ is positive-definite by the Hodge--Riemann bilinear relations
+and thus defines a hermitian metric $h$ on that bundle.
+
+\begin{theo}
+  \label{theoon}
+  The hermitian line bundle $(\rel, h) \to S$ is seminegative,
+  and negative if the family $\pi : X \to S$ is effective. If the
+  family can be polarized, then the Weil--Petersson metric given by
+  the polarizaton is a constant multiple of the curvature form of $h$.
+\end{theo}
+
+
+The next two propositions contain calculations necessary to our
+efforts. We try to keep our exposition brief, perhaps at the expense
+of clarity, but all the details are in \cite{Magnusson}.
+
+
+\begin{prop}
+  \label{propon}
+  Let $\omega$ be a Ricci-flat K\"ahler metric on $X$. If $\sigma$
+  is a nowhere zero holomorphic $(n,0)$-form on $X$ such that
+$$
+  \int_X \frac{i^{n^2}}{2^n} \sigma \wedge \overline \sigma
+  = \Vol(X,\omega),
+$$
+then the morphism
+$$
+  H^1(X,T_X) \to H^{n-1,1}(X,\CC),
+  \quad u \mapsto u \cup \sigma,
+$$
+is an isometry of cohomology groups,
+where the groups are equipped with the $L^2$ inner products defined
+by $\omega$.
+\end{prop}
+
+\begin{proof}
+  Since $\omega$ is Ricci-flat then $\omega^n/n! = (i^{n^2}/2^n)
+  \sigma \wedge \overline{\sigma}$ under our hypothesis. Now represent
+  all cohomology groups in sight by $\omega$-harmonic forms, some
+  with values in $T_X$. Fix a point $x \in X$. The result holds
+  for the local morphism $\overline{T}^*_{X,x} \otimes T_{X,x} \to
+  \bigwedge^{n-1} T_{X,x} \otimes \overline T_{X,x}^*$, which can be
+  seen by picking an orthonormal basis of $T_{X,x}$ and calculating. It
+  follows that the cup product is an isometry on the space of smooth
+  sections equipped with the $L^2$ norm.
+
+Since $\sigma$ is closed, the cup product sends closed forms to closed
+forms. As harmonic representatives are the ones of minimal $L^2$ norm
+in their cohomology class, the cup product then preserves harmonic
+representatives, and is an isometry on the level of cohomology groups.
+\end{proof}
+
+
+
+\begin{prop}
+\label{proptw}
+Let $\pi : X \to S$ be a family of compact manifolds with trivial
+canonical bundle over a smooth base $S$. Let $\xi$ and $\eta$ be
+local holomorphic vector fields on $S$. Let $\sigma$ be a local
+holomorphic nowhere zero section of $\rel$ over $S$, and let $\rho$
+be the Kodaira-Spencer morphism of the family. Then
+$$
+\frac{i}{2\pi} \Theta_{\rel,h}(\xi, \overline \eta) =
+\frac{i^{n^2}}{\| \sigma \|_{h}^2}
+\int_{X_s} \rho(\xi) \cup \sigma
+\wedge \overline{\rho(\eta) \cup \sigma}.
+$$
+\end{prop}
+
+\begin{proof}
+  We have
+$$
+\| \sigma \|_{h}^2 = \int_{X_s} i^{n^2} \sigma \wedge \overline \sigma.
+$$
+As usual, $i\Theta_{\rel,h}(\xi,\overline \eta)$ can be found by
+differentiating the logarithm of this expression in the directions
+of $\xi$ and $\overline \eta$. This maneuver will involve integrals
+of the Gauss--Manin connection applied to $\sigma$.
+
+  Griffiths transversality gives $\nabla_\xi \sigma = \nabla_\xi
+  \sigma^{(n,0)} + \nabla_\xi \sigma^{(n-1,1)}$, and basic
+  techniques in variation of Hodge structures show that $\nabla_\xi
+  \sigma^{(n-1,1)} = \rho(\xi) \cup \sigma$. Consequently
+$$
+  \nabla_\xi \sigma =
+  f_\xi \, \sigma + \rho(\xi) \cup \sigma,
+$$
+where $f_\xi$ is a complex function on $S$. A similar decomposition
+holds for $\nabla_\eta \sigma$. Then purely formal calculations give the
+announced result after a few lines.
+\end{proof}
+
+
+\begin{lemm}
+\label{lemm:inner.product.top.degree}
+Let $\kf$ be a Kahler class on $X$ and let $\alpha,\beta$ be
+$(n-1,1)$-classes. Then
+$$
+\llangle \alpha, \ov\beta \rrangle
+= -i^{n^2} \int_X \alpha \wedge \ov\beta.
+$$
+\end{lemm}
+
+
+\begin{proof}
+Decompose the given forms as
+\begin{equation*}
+\alpha = \alpha_0 \wedge \omega + \alpha_1, 
+\quad
+\beta = \beta_0 \wedge \omega + \beta_1,
+\end{equation*}
+where the forms $\alpha_0$ and $\beta_0$ are primitive $(n-2,0)$-forms
+on $X$, and the forms $\alpha_1$ and $\beta_1$ are primitive
+$(n-1,1)$-forms.  We observe that
+\begin{align*}
+  \llangle \alpha, \overline \beta \rrangle
+  &= \llangle \alpha_0 \wedge \omega,
+  \overline \beta_0 \wedge \omega \rrangle
+  + \llangle \alpha_1, \overline \beta_1 \rrangle,
+  \\
+i^{n^2} \int_X \alpha \wedge \overline \beta
+  &= 2i^{n^2}\int_X \alpha_0 \wedge \overline \beta_0 \wedge \omega\^2
+  + i^{n^2}\int_X \alpha_1 \wedge \overline \beta_1
+  \\
+&= 2 \llangle \alpha_0, \beta_0 \rrangle
+- \llangle \alpha_1, \beta_1 \rrangle
+\end{align*}
+by orthogonality of different primitive classes, degree reasons and the
+hard Lefschetz theorem (see~\cite[Chapter 1.2]{HuybrechtsGeometry}). 
+We note that $[L,\Lef] = -2\id$ and $\Lef = 0$ on $(n-2,0)$-classes.
+Then
+$$
+\llangle \alpha_0 \wedge \omega,
+\overline \beta_0 \wedge \omega \rrangle
+= 2 \llangle \alpha_0, \overline \beta_0 \rrangle,
+$$
+so
+$$
+i^{n^2} \int_X \alpha \wedge \overline \beta
+= \llangle \alpha_0, \overline \beta_0 \rrangle
+- \llangle \alpha_1, \overline \beta_1 \rrangle.
+\qedhere
+$$
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem~\ref{theoon}]
+Let $s$ be a point of $S$. If we fix a Ricci-flat K\"ahler metric
+$\omega$ on $X_s$ that satisfies their hypotheses, then
+Propositions~\ref{propon} and \ref{proptw} and
+Lemma~\ref{lemm:inner.product.top.degree} show that 
+$$
+  \frac{i}{2\pi} \Theta_{\rel,h}(\xi, \overline \xi) =
+  -\frac{2^n}{\Vol(X_s,\omega)} \| \rho(\xi) \|^2_\omega \leq 0,
+$$
+where $\rho : T_{S,s} \to H^1(X_s,T_{X_s})$ is the Kodaira--Spencer
+morphism of the family at $s$. If the family is effective, then $\rho$
+is everywhere injective, so $(\rel,h)$ is negative.
+
+Suppose now that the family is polarized by a family $\omega_s$ of
+Ricci-flat K\"ahler metrics. Then $\nabla \omega_s = 0$, so $s \mapsto
+\Vol(X_s,\omega_s) =: v$ is a constant function on $S$. If we apply
+the above propositions again, or note if the norms of inner products
+agree then they are the same by polarization identities, we see that
+$$
+\displaylines{
+\hfill
+\frac{i}{2\pi} \Theta_{\rel,h}(\xi, \overline \eta)
+= -\frac{2^n}{v} \langle\!\langle \xi, \overline\eta
+\rangle\!\rangle_{\mathrm{WP}}.
+\hfill\qedhere
+}
+$$
+\end{proof}
+
+Wang \cite{wang2003curvature} calculated the curvature tensor
+of the polarized Weil--Petersson metric from this Hodge-theoretic
+viewpoint. We invite the reader to check that his calculations never
+actually use the fact that the family in question is polarized,
+so Wang really proves this:
+
+\begin{theo}
+  Let $\pi : X \to S$ be an effective family of compact K\"ahler
+  manifolds with trivial canonical bundle. Let $\sigma$ be a local
+  nowhere zero section of $\rel$. The curvature tensor of the K\"ahler
+  metric $g$ defined by the curvature form of $({\rel}^*,-h)$ is
+$$
+\displaylines{
+    R(\xi,\overline \eta, \nu, \overline \zeta) =
+    -\bigl(g(\xi,\overline \eta)
+    \, g (\nu,\overline \zeta)
+    + g(\xi,\overline \zeta)
+    \, g (\eta,\overline \nu) \bigr)
+    \hfill\cr\hfill
+    {}+ \frac{i^{n^2}}{\|\sigma\|^2_h}
+    \int_{X_s} \rho(\xi) \cup \rho(\nu) \cup \sigma
+    \wedge \overline{ \rho(\eta) \cup \rho(\zeta) \cup \sigma},
+}
+$$
+where $\rho$ is the Kodaira-Spencer morphism of $\pi : X \to S$.
+\end{theo}
+
+As a consequence the usual negativity results on the curvature of the
+Weil--Petersson metric carry over to $g$. For example, the holomorphic
+sectional and Ricci curvatures of $g$ satisfy the bounds
+$H \geq -2$ and $r \geq -(n+1)$.
+
+
+\begin{exam}
+  Let $S$ be the set of $n \times n$ complex matrices $s$ such that
+$$
+\det \Im s = \det \tfrac 1{2i}(s - \overline s) \not= 0.
+$$
+Each such a matrix defines a complex torus $X_s = \CC^n / (\ZZ^n \oplus
+s \ZZ^n)$ of complex dimension $n$. The associated family $\pi : X
+\to S$ is the universal family of complex tori $X_s$ that are marked
+with a choice of basis of $H_1(X_s, \ZZ)$. Recall that principally
+polarized Abelian varieties are parametrized by the subvariety
+$$
+A = \{ s \in S \mid {}^t s = s, \, \Im s \text{ is positive-definite}
+\}.
+$$
+
+The family $\pi : X \to S$ cannot be polarized if $n > 1$; it is easy
+to show that given a $(1,1)$-class $u \not= 0$ on some $X_s$, there is
+always an infinitesimal direction $\xi$ of deformation such that $u$
+is not of type $(1,1)$ on tori in the direction of $\xi$. Our results
+nevertheless show that there is a Weil--Petersson metric $g$ on $S$,
+and that the standard Weil--Petersson metric on the subvariety of
+Abeliean varieties is the restriction of $g$ to $A$. In fact, if $\xi,
+\eta \in T_{S,s} = M_n(\CC)$, then
+$$
+g(\xi,\overline\eta)
+= \operatorname{tr}(\xi \cdot (\Im s)^{-1} \cdot
+{}^t\overline \eta \cdot {}^t\!(\Im s)^{-1}),
+$$
+which clearly restricts to the usual Weil--Petersson metric on
+the subvariety $A$ where the matrices $s$ are symmetric; see
+\cite{MR784145}.
+\end{exam}
+
+
+
+Recall that if $X_0$ is a compact K\"ahler manifold with zero first
+Chern class, then there exists an unramified finite covering
+$\widetilde{X}_0 \to X_0$ such that $\widetilde{X}_0$ is compact and has
+trivial canonical bundle; see \cite{MR730926}. Finite coverings can be
+taken in families, so we can reduce the general case to the one of
+manifolds with trivial canonical bundle. I don't have a reference for
+this fact, so we provide a statement and proof sketch.
+
+
+
+\begin{prop}
+Let $\pi : X \to S$ be a family of compact complex manifolds with
+finite fundamental group. Then there exists a family $\widetilde \pi :
+\widetilde X \to S$ of simply connected compact complex manifolds and a
+finite morphism of families $f : \widetilde X \to X$ such that
+$\widetilde X_s$ is the universal cover of $X_s$ and $f_s : \widetilde
+X_s \to X_s$ is the covering map for all $s \in S$.
+\end{prop}
+
+\begin{proof}
+Let $f_0 : \widetilde X_0 \to X_0$ be an unramified holomorphic finite
+covering map, where $\widetilde X_0$ is a compact complex manifold.
+Let's write $X_0 = M$ and $\widetilde X_0 = \widetilde M$ for the
+underlying smooth manifolds of $X_0$ and $\widetilde X_0$. Then $f_0 :
+\widetilde M \to M$ is a smooth finite covering map. Given a complex
+structure $J_s$ on $M$, there is a unique complex structure $\widetilde
+J_s$ on $\widetilde M$ that makes $f_0$ into a holomorphic map.  Putting
+these together we obtain a family $\widetilde X := \widetilde M \times
+S$, $\widetilde X_s = (\widetilde M, \widetilde J_s)$, of complex
+manifolds along with a holomorphic map $f : \widetilde X \to X$, $f(x,s)
+= f_0(x)$, such that $f_s : \widetilde X_s \to X_s$ is an unramified
+finite covering map.
+\end{proof}
+
+
+
+
+\begin{theo}
+The line bundle $\relt\to S$ is seminegative, negative if the family
+$\pi : X \to S$ is effective, and its curvature form is the  
+Weil--Petersson metric if the family $\pi : X \to S$ can be polarized.
+\end{theo}
+
+\begin{proof}
+  The only part to check is the claim on the Weil--Petersson
+  metric. If $\omega_s$ is a polarization of $\pi : X \to S$, then
+  $f^*\omega_s$ is a polarization of $\widetilde \pi : \widetilde X \to S$, and the
+  line bundle defines the Weil--Petersson metric associated to this
+  polarization. Given $\alpha \in H^1(X_s,T_{X_s})$ we get an element
+$$
+f^*\alpha \in H^1(\widetilde X_s, f^*T_{X_s}) = H^1(\widetilde X_s, T_{\smash{\widetilde
+X_s}}),
+$$
+and it is easy to check that
+$$
+\| f^*\alpha \|^2_{f^*\omega_s} = \|\alpha\|^2_{\omega_s},
+$$
+so the Weil--Petersson metric on $\pi : X \to S$ is induced by the
+one on $\widetilde \pi : X \to S$.
+\end{proof}
+
+
+
+\subsection*{The relative Kahler cone}
+
+
+Let again $\pi :\CX \to S$ be a family of compact Kahler manifolds with
+zero first Chern class, that we suppose to be effective. Also let $p:
+\RKC \to S$ be the relative complexified Kahler cone associated to the
+family. A simple consequence of the existence of the Weil--Petersson
+metric is that the total space $\RKC$ is a Kahler manifold; see
+Corollary~\ref{coro:kahlermanifold}.
+
+
+Recall that we can view a complex manifold as a smooth manifold equipped
+with a complex structure. The set of all complex structures on the
+smooth manifold is an infinite-dimensional complex manifold. We can
+quotient this manifold by the action of two groups; all diffeomorphisms,
+and diffeomorphisms that are homotopic to the identity. Either way we
+obtain a topological space that's a finite-dimensional complex manifold
+on good days. This is indeed what Kodaira and Spencer did in their
+fundamental papers on deformation
+theory~\cite{MR0112154,KodairaSpencerIII}.
+However they found that the quotient by all diffeomorphisms can be quite
+wild, since some manifolds may admit discrete automorphism groups of
+infinite order the quotient will not have the structure of a complex
+manifold or orbifold. The classical example of this phenomena is the
+space of complex structures on a torus \cite[p. 413]{MR0112154}.
+
+In the case of compact Kahler manifolds with zero first Chern class, the
+Bogomolov--Tian--Todorov theorem~\cite{Tian} entails that the
+Teichm\"uller space -- that is, the space of complex structures
+quotiented by diffeomorphisms homotopic to the identity -- is an honest
+smooth complex manifold. Problems thus arise only when we try to
+quotient by all diffeomorphisms.
+
+People have handled this problem by polarizing the families under
+consideration; cf~\cite{MR756781}. This has the effect of throwing away a
+number of automorphisms and the resulting quotient then often has the
+structure of an honest manifold. We would like to point out that one can
+avoid polarizing and quotient by all automorphisms, at least in the case
+of manifolds with zero first Chern class. The main step in this
+direction is provided by the following result, which we state in our
+language:
+
+
+\begin{theo}[{{\cite[Theorem 12.103]{MR2371700}}}]
+Let $\mathcal{C}_\RR$ be the real relative K\"ahler cone over the
+Teichm\"uller space. The group $\mathcal{D}^+$ of diffeomorphisms of $M$
+acts naturally on $\mathcal{C}_\RR$ and the quotient $\mathcal{C}_\RR /
+\mathcal{D}^+$ has the structure of an orbifold.
+\end{theo}
+
+From this one can easily deduce that the total space of the relative
+complexified K\"ahler cone $\RKC$ has a quotient that admits the
+structure of a holomorphic orbifold. The metrics we've considered in
+this paper are invariant under the action of automorphisms on each
+manifold in a family, so they pass to the quotient and define orbifold
+metrics. We must remark that these orbifolds may no longer have the
+structure of a fibration over a complex base, since taking the quotient
+may destroy any reasonable complex structure on the Teichm\"{u}ller
+space.
+
+
+
 
 
 
