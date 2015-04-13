@@ -666,7 +666,7 @@ The derived curvature tensors are as follows.
 \smallskip
 \noindent
 $\bullet$
-Holomorphic bisectional curvature:
+The holomorphic bisectional curvature is
 $$
 B(\ton,\ov\ttw) 
 = 
@@ -675,12 +675,14 @@ B(\ton,\ov\ttw)
 + \tfrac14 |\ton \wedge \ttw|^2
 \bigr)
 \bigm/
-|\ton|^2|\ttw|^2
+|\ton|^2|\ttw|^2.
 $$
+It is bounded below by $-\frac12$.
+
 \smallskip
 \noindent
 $\bullet$
-Holomorphic sectional curvature:
+The holomorphic sectional curvature is
 $$
 H(\ton) 
 =
@@ -691,10 +693,12 @@ H(\ton)
 \bigm/
 |\ton|^4
 $$
+It is bounded below by $-\frac12$.
+
 \smallskip
 \noindent
 $\bullet$
-Ricci curvature:
+The Ricci curvature is
 $$
 r(\ton, \ov\ttw) 
 =
@@ -702,83 +706,43 @@ r(\ton, \ov\ttw)
 + \sum_{j=1}^{h^{1,1}} \met{\ton\wedge x_j}{\ttw \wedge x_j},
 $$
 where $(x_1,\ldots,x_{h^{1,1}})$ is an orthonormal basis.
+We have the lower bound 
+$-\frac14(n+1)|\ton|^2 \leq r(\ton,\ov\ton)$ for all $\ton$.
 \end{coro}
-
-\begin{coro}
-The holomorphic sectional curvature of the metric is negative and
-bounded; we have
-$$
--\frac12 \leq H(\ton) \leq -\frac{1}{2n} < 0.
-$$
-The scalar curvature of the metric is also negative and bounded and
-satisfies 
-$$
--\frac{h^{1,1}(h^{1,1}+1)}{2} \leq s \leq -\frac{h^{1,1}(h^{1,1}+1)}{2n} < 0
-$$
-at all points on $\KC$.
-\end{coro}
-
-
-\begin{proof}
-The lower bound on the holomorphic sectional curvature is immediate. For
-the upper bound, C.N.~Yang proved that 
-$$
-\| \ton \wedge \ttw \|^2
-\leq \frac{2n-2}{n} \|\ton\|^2 \|\ttw\|^2
-$$
-for $(1,1)$-forms on a complex vector space of dimension $n$.
-(The constant is the best possible, as we see by taking multiples of the
-Kahler form.) Now represent our classes by forms that are harmonic with
-respect to an arbitrary Kahler metric in our Kahler class. Then this
-inequality holds pointwise on the underlying manifold. The wedge product
-of harmonic forms is usually not harmonic, so the integral of the
-norm of the wedge product of our forms is not the cohomological norm; it
-is bigger, because the wedge product of the harmonic forms represents the
-wedge product of the classes, and the harmonic forms are the forms of
-minimal volume in their equivalence class. Integrating over the
-manifold, we thus obtain the inequality on the level of cohomology.
-Applying this inequality to the holomorphic sectional curvature, we get
-$$
-H(\ton) 
-\leq 
-\tfrac14
-\bigl( \tfrac{n-2}{n} \|\ton\|^4 - \|\ton\|^4\bigr) \bigm/ \|u\|^4
-= -\tfrac{1}{2n}.
-$$
-
-For the scalar curvature, it is known that the average of the
-holomorphic sectional curvature over the unit tangent sphere over a
-point of our manifold is equal to $s / h^{1,1}(h^{1,1}+1)$. This gives
-the announced result.
-\end{proof}
 
 
 \begin{rema}
-The holomorphic bisectional curvature is also bounded below;
-dropping the $|\ton\wedge\ttw|^2$ term and applying Cauchy--Schwarz
-gives
+C.N.~Yang proved that we have 
 $$
--\tfrac12 \leq B(\ton,\ttw).
+\| \ton \wedge \ttw \|^2
+\leq \frac{2(n-1)}{n} \|\ton\|^2 \|\ttw\|^2
 $$
-By constrast, Yang's estimate only gives
-$$
-B(\ton,\ttw)
-\leq 
-\tfrac14
-\bigl( \tfrac{n-2}{n} \|\ton\|^2 \|\ttw\|^2 
-- |\langle \ton, \ov\ttw\rangle|^2\bigr)
-\bigm/ \|\ton\|^2\|\ttw\|^2,
-$$
-suggesting that the holomorphic bisectional curvature of this metric is
-of mixed sign. 
+for two-forms on a fixed vector space. It follows that the holomorphic
+sectional curvature of our metric on the Kahler cone of a complex torus
+is bounded from above by $-1/2n$. Since the holomorphic sectional
+curvature determines all of the curvature tensor, it is bounded as well,
+and by averaging the holomorphic sectional curvature over the unit
+tangent sphere we get that the scalar curvature of the metric is
+negative and bounded away from zero.
 
-Similarly, it's immediate that the Ricci curvature satisfies
+One might naively hope that Yang's inequality could be extended to the
+cohomology ring of other Kahler manifolds. Indeed, for any fixed
+manifold $X$ and Kahler class $\kf$, there is a constant $C(X,\kf)$ such
+that 
 $$
--\tfrac14(n+1)\|\ton\|^2 \leq r(\ton,\ov\ton),
+\| \ton \wedge \ttw \|^2
+\leq C(X,\kf) \|\ton\|^2 \|\ttw\|^2
 $$
-but Yang's estimate may not say anything about an upper bound; the naive
-estimate involving the triangle inequality and Cauchy--Schwarz is too
-brutal to give anything interesting.
+for all $(1,1)$-classes on $X$; the cup product defines a continuous
+bilinear morphism between finite-dimensional Hilbert spaces, so it is
+bounded. Taking $\ton = \ttw = \kf$ we see that $C(X,\kf) \geq
+2(n-1)/n$. However, the constant $C$ must depend in some way on the
+geometry of the manifold and on the Kahler class in general, it cannot
+always be equal to $2(n-1)/n$. If it were, it would follow that the scalar
+curvature of our metric were always negative and bounded away from zero,
+but Wilson and Trenner~\cite{WilsonTrenner} have given examples of
+Calabi--Yau $3$-folds where the scalar curvature of the metric is
+unbounded and tends towards infinity in certain limits.
 \end{rema}
 
 
