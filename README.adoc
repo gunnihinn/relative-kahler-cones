@@ -1,0 +1,7 @@
+= Curvature of complexified Kahler moduli
+
+This is a work-in-progress article on complexified Kahler moduli of compact
+Kahler manifolds. Our objective is to study their variation in families of
+compact Kahler manifolds, especially Calabi-Yau manifolds.
+
+There are some bugs in the article.
