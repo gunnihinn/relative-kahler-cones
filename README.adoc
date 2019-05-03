@@ -5,3 +5,14 @@ Kahler manifolds. Our objective is to study their variation in families of
 compact Kahler manifolds, especially Calabi-Yau manifolds.
 
 There are some bugs in the article.
+
+== Contributing
+
+If you'd like to help in some way, that's more than welcome. Open an issue or
+submit a PR. Everyone who contributes will be thanked in the article; those who
+do more than correct typos or similar will be coauthors.
+
+== License
+
+This work is licensed under the
+https://www.gnu.org/licenses/gpl-3.0.en.html[GPLv3].
