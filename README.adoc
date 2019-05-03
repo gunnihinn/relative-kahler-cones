@@ -1,10 +1,14 @@
-= Curvature of complexified Kahler moduli
+= Curvature of complexified Kähler moduli
 
-This is a work-in-progress article on complexified Kahler moduli of compact
-Kahler manifolds. Our objective is to study their variation in families of
-compact Kahler manifolds, especially Calabi-Yau manifolds.
+This is a work-in-progress article on complexified Kähler moduli of compact
+Kähler manifolds. Our objective is to study their variation in families of
+compact Kähler manifolds, especially Calabi-Yau manifolds.
 
 There are some bugs in the article.
+
+== Compile
+
+Run `make` to create a PDF of the article.
 
 == Contributing
 
